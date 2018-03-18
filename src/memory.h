@@ -1,12 +1,16 @@
 /*
  * memory.h
  *
- *  Created on: Mar 17, 2018
- *      Author: NRS1G15
+ *  Created on: Mar 18, 2018
+ *      Author: Sil
  */
 
 #ifndef MEMORY_H_
 #define MEMORY_H_
+
+#if DEBUGMODE
+	#include "debug.h"
+#endif
 
 class memory {
 public:
@@ -14,7 +18,7 @@ public:
 	signed int load(unsigned int targetAddress);
 
 protected:
-	signed int memoryBlock[1023] = {0}; 	//1024 32 bits memory locations of shared data
+	signed int memoryBlock[1023] = {0}; 			//1024 32 bits memory locations of shared data
 	signed int* memoryAddress = &memoryBlock[0];	//pointer set to to memoryBlock so it can be accessed from any where correctly
 };
 

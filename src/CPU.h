@@ -1,15 +1,19 @@
 /*
  * CPU.h
  *
- *  Created on: Mar 17, 2018
- *      Author: NRS1G15
+ *  Created on: Mar 18, 2018
+ *      Author: Sil
  */
 
 #ifndef CPU_H_
 #define CPU_H_
 
+#if DEBUGMODE
+	#include "debug.h"
+#endif
+
+#include "instructions.h"
 #include "memory.h"
-//#include "instructions.h"
 
 class CPU {
 public:
@@ -19,15 +23,19 @@ public:
 protected:
 	static signed int IRreg;	//IR register, unsigned as all instructions are positive
 	signed int *IR = &IRreg;
-	static signed int AC;		//AC register, signed as calculations could have negative numbers
-	static unsigned int PR;	//PC register, unsigned as locations will be positive
+	static signed int ACreg;	//AC register, signed as calculations could have negative numbers
+	signed int *AC = &ACreg;
+	static unsigned int PRreg;	//PC register, unsigned as locations will be positive
+	unsigned int *PR = &PRreg;
 
 	class ALU;
 	class decoder;
 	ALU *ALU;
 	decoder *decoder;
-	memory *memory;	//Declaration of memory for cpu to use
+	memory *memory;
 };
+
+
 
 
 #endif /* CPU_H_ */
