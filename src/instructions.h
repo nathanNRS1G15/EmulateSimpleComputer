@@ -8,7 +8,10 @@
 #ifndef INSTRUCTIONS_H_
 #define INSTRUCTIONS_H_
 
-unsigned short instruction;		//32 bit instruction width for opcodes and references
+#define OPCODE 8
+#define OPERANDONE 16
+#define OPERANDTWO 8
+
 /*
  * STRUCTURE OF INSTRUCTION
  * [8 bit opcode] [16 bit operand][8 bit operand]
@@ -22,7 +25,7 @@ unsigned short instruction;		//32 bit instruction width for opcodes and referenc
  *[	subi][	immediate		][				]	*(sub immediate)		Subtracts immediate value from AC value
  *[	mul	][	memory address	][				]	*(multiply)				Multiplies together current value in AC and value from memory address
  *[	muli][	immediate		][				]	*(multiply immediate)	Multiplies together current value in AC and immediate value
- *[	div	][	memory address	][				]	*(divide)				Divides current value in AC by value from memory address
+ *[	di	][	memory address	][				]	*(divide)				Divides current value in AC by value from memory address
  *[	divi][	immediate		][				]	*(divide immediate)		Divides AC value by immediate value
  *[	beq	][	memory address	][	PC offset	]	*(branch if equal)		Offsets PC counter by PC offset amount if AC and memory address values are equal
  *[	beqi][	immediate		][	PC offset	]	*(branch if equal imm)	Offsets PC counter by PC offset amount if AC and immediate values are equal
@@ -33,23 +36,23 @@ unsigned short instruction;		//32 bit instruction width for opcodes and referenc
  *[	j	][					][	PC offset	]	*(jump)					Offset the PC counter by PC offset amount
  *
  */
-const unsigned char lw	(1);
-const unsigned char sw	(2);
-const unsigned char add	(3);
-const unsigned char addi(4);
-const unsigned char sub	(5);
-const unsigned char subi(6);
-const unsigned char mul	(7);
-const unsigned char muli(8);
-const unsigned char div	(9);
-const unsigned char divi(10);
-const unsigned char beq	(11);
-const unsigned char beqi(12);
-const unsigned char bne	(13);
-const unsigned char bnei(14);
-const unsigned char slt	(15);
-const unsigned char slti(16);
-const unsigned char j	(17);
+#define LW 		0x01
+#define SW 		0x02
+#define ADD 	0x03
+#define ADDI 	0x04
+#define SUB 	0x05
+#define SUBI 	0x06
+#define MUL 	0x07
+#define MULI 	0x08
+#define DIV 	0x09
+#define DIVI 	0x0a
+#define BEQ 	0x0b
+#define BEQI 	0x0c
+#define BNE 	0x0d
+#define BNEI 	0x0e
+#define SLT		0x0f
+#define SLTI	0x10
+#define J		0x11
 
 
 

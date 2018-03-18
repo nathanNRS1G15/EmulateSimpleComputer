@@ -7,7 +7,9 @@
 #include <fstream>
 using namespace std;
 
-#define DEBUGMODE false
+
+#include "debug.h"
+#include "CPU.h"
 
 int main() {
 	//cout << "Hello World" << endl; // prints Hello World
@@ -18,10 +20,14 @@ int main() {
 	cout << (signed int)(signed char)c << endl;
 	cout << (c >> 8) << endl;*/
 
-	int a = 0;
-	unsigned int b = 0xffffffff;
-	a = b;
-	cout << a << endl;
+	CPU CPU;
+	//signed int instruction = 0x01;
+	//instruction <<= OPERANDONE;
+	//instruction |= 100;
+	//instruction <<= OPERANDTWO;
+
+	//cout << instruction << endl;
+	CPU.memory->save(200, 1);
 
 	return 0;
 }
