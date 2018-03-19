@@ -49,4 +49,3 @@ void instructionDecodeLog(string function, unsigned int instruction, int decoded
 }
 
 
-

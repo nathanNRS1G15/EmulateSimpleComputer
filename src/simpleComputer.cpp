@@ -1,13 +1,15 @@
 /*
- * CPU.cpp
+ * simpleComputer.cpp
  *
  *  Created on: Mar 17, 2018
  *      Author: NRS1G15
  */
 
-#include "CPU.h"
+#include "simpleComputer.h"
+#include <iostream>
+#include <vector>
 
-class CPU::ALU {
+class simpleComputer::ALU {
 public:
 #if DEBUGMODE
 	void add(signed int source, signed int *AC) {
@@ -47,7 +49,7 @@ public:
 
 };
 
-class CPU::decoder {
+class simpleComputer::decoder {
 public:
 #if DEBUGMODE
 	unsigned char decodeOpcode(unsigned int instruction) {
@@ -86,17 +88,42 @@ public:
 #endif
 };
 
-void CPU::fetch(unsigned int address) {
+class simpleComputer::memory {
+public:
+	void save(int *address, int *value) {
+#if DEBUGMODE
+		memoryBlock[*address] = *value;
+		cout << memoryBlock[*address] << endl;
+		memoryLog('S', *address, *value);
+#else
+		memoryBlock[address] = value;
+#endif
+	}
+	signed int load(int address) {
+#if DEBUGMODE
+		signed int result = memoryBlock[address];
+		memoryLog('L', address, result);
+		return result;
+#else
+		return memoryBlock[address];
+#endif
+	}
+
+	static signed int memoryBlock[1024];
+};
+signed int simpleComputer::memory::memoryBlock[1024] = {0};
+
+void simpleComputer::fetch(unsigned int address) {
 #if DEBUGMODE
 	signed int input = memory->load(address);
 	CPULog("Fetch", input);
-	*IR = memory->load(input);
+	*IR = input;
 #else
 	*IR = memory->load(address);
 #endif
 }
 
-void CPU::execute(void) {
+void simpleComputer::execute(void) {
 #if DEBUGMODE
 	unsigned char opcode = decoder->decodeOpcode(*IR);
 	CPULog("Execute", opcode);
@@ -108,7 +135,7 @@ void CPU::execute(void) {
 		*AC = memory->load(decoder->decodeAddress(*IR));
 		break;
 	case SW:
-		memory->save(*AC, decoder->decodeAddress(*IR));
+		//memory->save(decoder->decodeAddress(*IR), *AC);
 		break;
 	case ADD:
 		ALU->add(decoder->decodeAddress(*IR), AC);
@@ -137,3 +164,8 @@ void CPU::execute(void) {
 	}
 }
 
+void simpleComputer::flashMemory(signed int *array, signed int size) {
+	for(int i = 100; i < size + 100; i++) {
+		memory->save(&i, &array[i - 100]);
+	}
+}

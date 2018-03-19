@@ -9,7 +9,7 @@ using namespace std;
 
 
 #include "debug.h"
-#include "CPU.h"
+#include "simpleComputer.h"
 
 int main() {
 	//cout << "Hello World" << endl; // prints Hello World
@@ -20,14 +20,21 @@ int main() {
 	cout << (signed int)(signed char)c << endl;
 	cout << (c >> 8) << endl;*/
 
-	CPU CPU;
+	simpleComputer PC;
 	//signed int instruction = 0x01;
 	//instruction <<= OPERANDONE;
 	//instruction |= 100;
 	//instruction <<= OPERANDTWO;
 
 	//cout << instruction << endl;
-	CPU.memory->save(200, 1);
+	int instructions[1];
+	instructions[0] = 2;
+	instructions[1] = 4;
 
+	PC.flashMemory(&instructions[0], 2);
+
+	int array[3000] = {0};
+	array[300] = 0xffff;
+	//cout << array[300] << endl;
 	return 0;
 }

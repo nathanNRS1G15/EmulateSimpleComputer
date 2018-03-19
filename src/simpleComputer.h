@@ -5,19 +5,18 @@
  *      Author: Sil
  */
 
-#ifndef CPU_H_
-#define CPU_H_
+#ifndef SIMPLECOMPUTER_H_
+#define SIMPLECOMPUTER_H_
 
 #include "debug.h"
-
+#include <array>
 #include "instructions.h"
-#include "memory.h"
 
-class CPU {
+class simpleComputer {
 public:
 	void fetch(unsigned int address);
 	void execute(void);
-	memory *memory;
+	void flashMemory(signed int *array, signed int size);
 
 protected:
 	signed int IRreg = 0;	//IR register, unsigned as all instructions are positive
@@ -29,6 +28,10 @@ protected:
 
 	class ALU;
 	class decoder;
+	class memory;
+	class IO;
+	IO *IO;
+	memory *memory;
 	ALU *ALU;
 	decoder *decoder;
 };
@@ -36,4 +39,4 @@ protected:
 
 
 
-#endif /* CPU_H_ */
+#endif /* SIMPLECOMPUTER_H_ */
