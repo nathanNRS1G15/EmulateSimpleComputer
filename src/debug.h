@@ -19,7 +19,7 @@ using namespace std;
 
 string getTime(void);
 void memoryLog(char function, unsigned int targetAddress, signed int sourceValue);
-void CPULog(string function, signed int input);
+void CPULog(char function, signed int input, string regName);
 void ALULog(string function, signed int sourceValue, signed int ACvalue, signed int result);
 void instructionDecodeLog(string function, unsigned int instruction, int decoded);
 

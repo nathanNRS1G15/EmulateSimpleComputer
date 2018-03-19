@@ -18,6 +18,7 @@
  *
  * Table of instructions
  *[	lw	][	memory address	][				] 	*(load word) 			Takes the value from memory address and places it in the AC register
+ *[	li	][	immediate		][				]	*(load immediate)		Loads AC with immediate value
  *[	sw	][	memory address	][				]	*(save word)			Takes the value from the AC register and stores it in the memory address
  *[	add	][	memory address	][				]	*(add) 					Adds together current value in AC and value from memory address
  *[	addi][	immediate		][				]	*(add immediate)		Adds together current value in AC and immediate value
@@ -37,22 +38,23 @@
  *
  */
 #define LW 		0x01
-#define SW 		0x02
-#define ADD 	0x03
-#define ADDI 	0x04
-#define SUB 	0x05
-#define SUBI 	0x06
-#define MUL 	0x07
-#define MULI 	0x08
-#define DIV 	0x09
-#define DIVI 	0x0a
-#define BEQ 	0x0b
-#define BEQI 	0x0c
-#define BNE 	0x0d
-#define BNEI 	0x0e
-#define SLT		0x0f
-#define SLTI	0x10
-#define J		0x11
+#define LI		0x02
+#define SW 		0x03
+#define ADD 	0x04
+#define ADDI 	0x05
+#define SUB 	0x06
+#define SUBI 	0x07
+#define MUL 	0x08
+#define MULI 	0x09
+#define DIV 	0x0a
+#define DIVI 	0x0b
+#define BEQ 	0x0c
+#define BEQI 	0x0d
+#define BNE 	0x0e
+#define BNEI 	0x0f
+#define SLT		0x10
+#define SLTI	0x11
+#define J		0x12
 
 
 

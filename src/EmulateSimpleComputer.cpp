@@ -21,20 +21,15 @@ int main() {
 	cout << (c >> 8) << endl;*/
 
 	simpleComputer PC;
-	//signed int instruction = 0x01;
-	//instruction <<= OPERANDONE;
-	//instruction |= 100;
-	//instruction <<= OPERANDTWO;
-
-	//cout << instruction << endl;
-	int instructions[1];
-	instructions[0] = 2;
-	instructions[1] = 4;
+	signed int instructions[1];
+	signed int instruction = LI;
+	instruction <<= OPERANDONE;
+	instruction |= 100;
+	instruction <<= OPERANDTWO;
+	instructions[0] = instruction;
 
 	PC.flashMemory(&instructions[0], 2);
-
-	int array[3000] = {0};
-	array[300] = 0xffff;
-	//cout << array[300] << endl;
+	PC.fetch();
+	PC.execute();
 	return 0;
 }

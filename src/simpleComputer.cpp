@@ -59,17 +59,17 @@ public:
 	}
 	unsigned short decodeAddress(unsigned int instruction) {
 		unsigned short result = (instruction >> 8) & 0xffff;
-		instructionDecodeLog("Opcode", instruction, result);
+		instructionDecodeLog("Address", instruction, result);
 		return result;
 	}
 	signed short decodeImmediate(unsigned int instruction) {
 		signed short result = (instruction >> 8) & 0xffff;
-		instructionDecodeLog("Opcode", instruction, result);
+		instructionDecodeLog("immediate", instruction, result);
 		return result;
 	}
 	signed char decodeOffSet(unsigned short instruction) {
 		signed char result = instruction;
-		instructionDecodeLog("Opcode", instruction, result);
+		instructionDecodeLog("Offset", instruction, result);
 		return result;
 	}
 #else
@@ -90,11 +90,11 @@ public:
 
 class simpleComputer::memory {
 public:
-	void save(int *address, int *value) {
+	void save(int address, int value) {
 #if DEBUGMODE
-		memoryBlock[*address] = *value;
-		cout << memoryBlock[*address] << endl;
-		memoryLog('S', *address, *value);
+		memoryBlock[address] = value;
+		cout << memoryBlock[address] << endl;
+		memoryLog('S', address, value);
 #else
 		memoryBlock[address] = value;
 #endif
@@ -113,10 +113,10 @@ public:
 };
 signed int simpleComputer::memory::memoryBlock[1024] = {0};
 
-void simpleComputer::fetch(unsigned int address) {
+void simpleComputer::fetch(void) {
 #if DEBUGMODE
-	signed int input = memory->load(address);
-	CPULog("Fetch", input);
+	signed int input = memory->load(*PR);
+	CPULog('F', input, "na");
 	*IR = input;
 #else
 	*IR = memory->load(address);
@@ -126,16 +126,27 @@ void simpleComputer::fetch(unsigned int address) {
 void simpleComputer::execute(void) {
 #if DEBUGMODE
 	unsigned char opcode = decoder->decodeOpcode(*IR);
-	CPULog("Execute", opcode);
+	CPULog('E', opcode, "na");
 	switch(opcode) {
+	case LW:
+		*AC = memory->load(decoder->decodeAddress(*IR));
+		CPULog('R', *AC, "AC");
+		break;
+	case LI:
+		*AC = decoder->decodeImmediate(*IR);
+		CPULog('R', *AC, "AC");
+		break;
 #else
 	switch(decoder->decodeOpcode(*IR)) {
-#endif
 	case LW:
 		*AC = memory->load(decoder->decodeAddress(*IR));
 		break;
+	case LI:
+		*AC = decoder->decodeImmediate(*IR);
+		break;
+#endif
 	case SW:
-		//memory->save(decoder->decodeAddress(*IR), *AC);
+		memory->save(decoder->decodeAddress(*IR), *AC);
 		break;
 	case ADD:
 		ALU->add(decoder->decodeAddress(*IR), AC);
@@ -166,6 +177,6 @@ void simpleComputer::execute(void) {
 
 void simpleComputer::flashMemory(signed int *array, signed int size) {
 	for(int i = 100; i < size + 100; i++) {
-		memory->save(&i, &array[i - 100]);
+		memory->save(i, array[i - 100]);
 	}
 }

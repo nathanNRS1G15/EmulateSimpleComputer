@@ -7,6 +7,8 @@
 
 #include "debug.h"
 
+static string opcodeLookUp[18] = {"lw", "li", "sw", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
+
 string getTime(void) {
 	auto now = chrono::system_clock::now();
 	time_t now_time = chrono::system_clock::to_time_t(now);
@@ -27,10 +29,20 @@ void memoryLog(char function, unsigned int targetAddress, signed int sourceValue
 	logFile.close();
 }
 
-void CPULog(string function, signed int input) {
+void CPULog(char function, signed int input, string regName) {
 	ofstream logFile;
 	logFile.open ("debug.txt", ios::app);
-	logFile << getTime() << ": CPU: " << function << " : " << input << " -> IR." <<  endl;
+	switch(function) {
+	case 'F':
+		logFile << getTime() << ": CPU: " << function << " : " << input << " -> IR." <<  endl;
+		break;
+	case 'E':
+		logFile << getTime() << ": CPU: " << function << " : " << opcodeLookUp[input - 1] << "." <<  endl;
+		break;
+	case 'R':
+		logFile << getTime() << ": CPU: " << regName << " : " << input << "." <<  endl;
+	}
+
 	logFile.close();
 }
 
