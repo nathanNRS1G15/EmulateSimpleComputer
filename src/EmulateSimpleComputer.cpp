@@ -10,31 +10,16 @@ using namespace std;
 
 #include "debug.h"
 #include "simpleComputer.h"
+#include "assembler.h"
 
 int main() {
-	//cout << "Hello World" << endl; // prints Hello World
 
-	/*unsigned int a = 12;
-	signed char b = -128;
-	unsigned int c = ((a << 8) | 255) & b; //‭111 0100 1100‬
-	cout << (signed int)(signed char)c << endl;
-	cout << (c >> 8) << endl;*/
-
+	int *compiledCode = compileAsm("tests.asm");
+	cout << compiledCode[0] << endl;
+	cout << compiledCode[1] << endl;
+	cout << compiledCode[2] << endl;
 	simpleComputer PC;
-	signed int instructions[1];
 
-	signed int instruction = LI;
-	instruction <<= OPERANDONE;
-	instruction |= 100;
-	instruction <<= OPERANDTWO;
-	instructions[0] = instruction;
-
-	instruction = ADDI;
-	instruction <<= OPERANDONE;
-	instruction |= 100;
-	instruction <<= OPERANDTWO;
-	instructions[1] = instruction;
-
-	PC.flashMemory(&instructions[0], 2);
+	PC.flashMemory(compiledCode, 3);
 	return 0;
 }

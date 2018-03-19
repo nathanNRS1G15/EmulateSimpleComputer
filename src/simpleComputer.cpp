@@ -92,7 +92,6 @@ public:
 	void save(int address, int value) {
 #if DEBUGMODE
 		memoryBlock[address] = value;
-		cout << memoryBlock[address] << endl;
 		memoryLog('S', address, value);
 #else
 		memoryBlock[address] = value;
@@ -118,7 +117,7 @@ void simpleComputer::fetch(void) {
 	CPULog('F', input, "na");
 	*IR = input;
 #else
-	*IR = memory->load(address);
+	*IR = memory->load(*PR);
 #endif
 
 	execute();
