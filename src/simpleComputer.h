@@ -16,7 +16,6 @@ class simpleComputer {
 public:
 	void fetch(void);
 	void execute(void);
-	void incrementPR(signed int increment);
 	void flashMemory(signed int *array, signed int size);
 
 protected:
@@ -24,8 +23,8 @@ protected:
 	signed int *IR = &IRreg;
 	signed int ACreg = 0;	//AC register, signed as calculations could have negative numbers
 	signed int *AC = &ACreg;
-	unsigned int PRreg = 100;	//PC register, unsigned as locations will be positive
-	unsigned int *PR = &PRreg;
+	signed int PRreg = 100;	//PC register, unsigned as locations will be positive
+	signed int *PR = &PRreg;
 
 	class ALU;
 	class decoder;

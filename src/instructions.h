@@ -8,18 +8,19 @@
 #ifndef INSTRUCTIONS_H_
 #define INSTRUCTIONS_H_
 
-#define OPCODE 8
-#define OPERANDONE 16
-#define OPERANDTWO 8
+#define OPCODE 6
+#define OPERANDONE 13
+#define OPERANDTWO 13
 
 /*
  * STRUCTURE OF INSTRUCTION
- * [8 bit opcode] [16 bit operand][8 bit operand]
+ * [6 bit opcode] [13 bit operand][13 bit operand]
  *
  * Table of instructions
- *[	lw	][	memory address	][				] 	*(load word) 			Takes the value from memory address and places it in the AC register
+ *[	lm	][	memory address	][				] 	*(load memory) 			Takes the value from memory address and places it in the AC register
  *[	li	][	immediate		][				]	*(load immediate)		Loads AC with immediate value
- *[	sw	][	memory address	][				]	*(save word)			Takes the value from the AC register and stores it in the memory address
+ *[	sm	][	memory address	][				]	*(save AC to memory)	Takes the value from the AC register and stores it in the memory address
+ *[	si	][	memory address	][	immediate	]	*(save immediated)		Takes immediate value and saves it in memory
  *[	add	][	memory address	][				]	*(add) 					Adds together current value in AC and value from memory address
  *[	addi][	immediate		][				]	*(add immediate)		Adds together current value in AC and immediate value
  *[	sub	][	memory address	][				]	*(sub)					Subtracts value in memory address from AC value
@@ -37,24 +38,25 @@
  *[	j	][					][	PC offset	]	*(jump)					Offset the PC counter by PC offset amount
  *
  */
-#define LW 		0x01
+#define LM 		0x01
 #define LI		0x02
-#define SW 		0x03
-#define ADD 	0x04
-#define ADDI 	0x05
-#define SUB 	0x06
-#define SUBI 	0x07
-#define MUL 	0x08
-#define MULI 	0x09
-#define DIV 	0x0a
-#define DIVI 	0x0b
-#define BEQ 	0x0c
-#define BEQI 	0x0d
-#define BNE 	0x0e
-#define BNEI 	0x0f
-#define SLT		0x10
-#define SLTI	0x11
-#define J		0x12
+#define SM 		0x03
+#define SI		0x04
+#define ADD 	0x05
+#define ADDI 	0x06
+#define SUB 	0x07
+#define SUBI 	0x08
+#define MUL 	0x09
+#define MULI 	0x0a
+#define DIV 	0x0b
+#define DIVI 	0x0c
+#define BEQ 	0x0d
+#define BEQI 	0x0e
+#define BNE 	0x0f
+#define BNEI 	0x10
+#define SLT		0x11
+#define SLTI	0x12
+#define J		0x13
 
 
 

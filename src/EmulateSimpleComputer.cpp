@@ -15,11 +15,8 @@ using namespace std;
 int main() {
 
 	int *compiledCode = compileAsm("tests.asm");
-	cout << compiledCode[0] << endl;
-	cout << compiledCode[1] << endl;
-	cout << compiledCode[2] << endl;
 	simpleComputer PC;
 
-	PC.flashMemory(compiledCode, 3);
+	PC.flashMemory(compiledCode, numLines);
 	return 0;
 }

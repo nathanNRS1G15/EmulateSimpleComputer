@@ -7,7 +7,7 @@
 
 #include "debug.h"
 
-static string opcodeLookUp[18] = {"lw", "li", "sw", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
+static string opcodeLookUp[20] = {"lm", "li", "sm", "si", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
 
 string getTime(void) {
 	auto now = chrono::system_clock::now();
@@ -20,10 +20,10 @@ void memoryLog(char function, unsigned int targetAddress, signed int sourceValue
 	logFile.open ("debug.txt", ios::app);
 	switch (function) {
 	case 'S':
-		logFile << getTime() << ": Memory: " << function << " : " << sourceValue << " -> ["<< targetAddress << "]." <<  endl;
+		logFile << getTime() << ": Memory : " << function << " : " << sourceValue << " -> ["<< targetAddress << "]." <<  endl;
 		break;
 	case 'L':
-		logFile << getTime() << ": Memory: " << function << " : ["<< targetAddress << "] -> " << sourceValue << "." <<  endl;
+		logFile << getTime() << ": Memory : " << function << " : ["<< targetAddress << "] -> " << sourceValue << "." <<  endl;
 		break;
 	}
 	logFile.close();
@@ -34,13 +34,13 @@ void CPULog(char function, signed int input, string regName) {
 	logFile.open ("debug.txt", ios::app);
 	switch(function) {
 	case 'F':
-		logFile << getTime() << ": CPU: " << function << " : " << input << " -> IR." <<  endl;
+		logFile << getTime() << ": CPU    : " << function << " : " << input << " -> IR." <<  endl;
 		break;
 	case 'E':
-		logFile << getTime() << ": CPU: " << function << " : " << opcodeLookUp[input - 1] << "." <<  endl;
+		logFile << getTime() << ": CPU    : " << function << " : " << opcodeLookUp[input - 1] << "." <<  endl;
 		break;
 	case 'R':
-		logFile << getTime() << ": CPU: " << regName << " : " << input << "." <<  endl;
+		logFile << getTime() << ": CPU    : " << regName << " : " << input << "." <<  endl;
 	}
 
 	logFile.close();
@@ -49,7 +49,11 @@ void CPULog(char function, signed int input, string regName) {
 void ALULog(string function, signed int sourceValue, signed int ACvalue, signed int result) {
 	ofstream logFile;
 	logFile.open ("debug.txt", ios::app);
-	logFile << getTime() << ": ALU: " << function << " : " << "AC -> " << ACvalue << ", source -> "<< sourceValue << " : " << result << " -> AC." <<  endl;
+	if(function == "PR")
+		logFile << getTime() << ": ALU    : " << function << " : " << "PR -> " << ACvalue << ", source -> "<< sourceValue << " : " << result << " -> PR." <<  endl;
+	else
+		logFile << getTime() << ": ALU    : " << function << " : " << "AC -> " << ACvalue << ", source -> "<< sourceValue << " : " << result << " -> AC." <<  endl;
+
 	logFile.close();
 }
 

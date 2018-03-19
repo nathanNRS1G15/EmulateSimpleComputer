@@ -19,30 +19,46 @@ public:
 	void sub(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC - source;
-		ALULog("add", source, temp, *AC);
+		ALULog("sub", source, temp, *AC);
 	}
 	void mul(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC * source;
-		ALULog("add", source,  temp, *AC);
+		ALULog("mul", source, temp, *AC);
 	}
 	void div(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC / source;
-		ALULog("add", source, temp, *AC);
+		ALULog("div", source, temp, *AC);
+	}
+	void slt(signed int source, signed int *AC) {
+		signed int temp = *AC;
+		*AC = (source < temp) ? 1 : 0;
+		ALULog("slt", source, temp, *AC);
+	}
+	void PR(signed int increment, signed int *PR) {
+		signed int temp = *PR;
+		*PR = *PR + increment;
+		ALULog("PR", increment, temp, *PR);
 	}
 #else
-	void add(signed int source, signed int *AC) {
-		*AC = *AC + source;
+	void add(signed int source, signed int *target) {
+		*target = *target + source;
 	}
-	void sub(signed int source, signed int *AC) {
-		*AC = *AC - source;
+	void sub(signed int source, signed int *target) {
+		*target = *target - source;
 	}
-	void mul(signed int source, signed int *AC) {
-		*AC = *AC * source;
+	void mul(signed int source, signed int *target) {
+		*target = *target * source;
 	}
-	void div(signed int source, signed int *AC) {
-		*AC = *AC / source;
+	void div(signed int source, signed int *target) {
+		*target = *target / source;
+	}
+	void slt(signed int source, signed int *target) {
+		*target = (source < *target) ? 1 : 0;
+	}
+	void PR(signed int increment, signed int *PR) {
+		*PR = *PR + increment;
 	}
 #endif
 
@@ -51,38 +67,30 @@ public:
 class simpleComputer::decoder {
 public:
 #if DEBUGMODE
-	unsigned char decodeOPRode(unsigned int instruction) {
-		unsigned char result = instruction >> 24;
+	unsigned char decodeOPCode(unsigned int instruction) {
+		unsigned char result = (instruction >> (OPERANDONE + OPERANDTWO));
 		instructionDecodeLog("OPCode", instruction, result);
 		return result;
 	}
-	unsigned short decodeAddress(unsigned int instruction) {
-		unsigned short result = (instruction >> 8) & 0xffff;
-		instructionDecodeLog("Address", instruction, result);
+	unsigned short decodeOperandOne(unsigned int instruction) {
+		unsigned short result = (instruction >> OPERANDONE) & 0x1fff;
+		instructionDecodeLog("Operand one", instruction, result);
 		return result;
 	}
-	signed short decodeImmediate(unsigned int instruction) {
-		signed short result = (instruction >> 8) & 0xffff;
-		instructionDecodeLog("immediate", instruction, result);
-		return result;
-	}
-	signed char decodeOffSet(unsigned short instruction) {
-		signed char result = instruction;
-		instructionDecodeLog("Offset", instruction, result);
+	signed short decodeOperandTwo(unsigned short instruction) {
+		signed short result = (((instruction & 0x1fff) >> 12) == 1) ? ((instruction & 0x1fff) | 0xe000) : (instruction & 0x1fff);
+		instructionDecodeLog("Operand two", instruction, result);
 		return result;
 	}
 #else
-	unsigned char decodeOPRode(unsigned int instruction) {
-		return instruction >> 24;
+	unsigned char decodeOPCode(unsigned int instruction) {
+		return (instruction >> (OPERANCEONE + OPERANCETWO));
 	}
-	unsigned short decodeAddress(unsigned int instruction) {
-		return (instruction >> 8) & 0xffff;
+	unsigned short decodeOperandOne(unsigned int instruction) {
+		return (instruction >> OPERANDONE) & 0x1fff;
 	}
-	signed short decodeImmediate(unsigned int instruction) {
-		return (instruction >> 8) & 0xffff;
-	}
-	signed char decodeOffSet(unsigned short instruction) {
-		return instruction;
+	signed short decodeOperandTwo(unsigned short instruction) {
+		return instruction & 0x1fff;
 	}
 #endif
 };
@@ -124,66 +132,100 @@ void simpleComputer::fetch(void) {
 }
 
 void simpleComputer::execute(void) {
-	unsigned int PRincrement = 1;
 #if DEBUGMODE
-	unsigned char oPRode = decoder->decodeOPRode(*IR);
-	CPULog('E', oPRode, "na");
-	switch(oPRode) {
-	case LW:
-		*AC = memory->load(decoder->decodeAddress(*IR));
+	unsigned char opCode = decoder->decodeOPCode(*IR);
+	CPULog('E', opCode, "na");
+	switch(opCode) {
+	case LM:
+		*AC = memory->load(decoder->decodeOperandOne(*IR));
+		ALU->PR(1, PR);
 		CPULog('R', *AC, "AC");
 		break;
 	case LI:
-		*AC = decoder->decodeImmediate(*IR);
+		*AC = decoder->decodeOperandOne(*IR);
+		ALU->PR(1, PR);
 		CPULog('R', *AC, "AC");
 		break;
 #else
 	switch(decoder->decodeOPRode(*IR)) {
-	case LW:
-		*AC = memory->load(decoder->decodeAddress(*IR));
+	case LM:
+		*AC = memory->load(decoder->decodeOperandOne(*IR));
+		ALU->PR(1, PR);
 		break;
 	case LI:
-		*AC = decoder->decodeImmediate(*IR);
+		*AC = decoder->decodeOperandOne(*IR);
+		ALU->PR(1, PR);
 		break;
 #endif
-	case SW:
-		memory->save(decoder->decodeAddress(*IR), *AC);
+	case SM:
+		memory->save(decoder->decodeOperandOne(*IR), decoder->decodeOperandTwo(*IR));
+		ALU->PR(1, PR);
+		break;
+	case SI:
+		memory->save(decoder->decodeOperandOne(*IR), *AC);
+		ALU->PR(1, PR);
 		break;
 	case ADD:
-		ALU->add(decoder->decodeAddress(*IR), AC);
+		ALU->add(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		ALU->PR(1, PR);
 		break;
 	case ADDI:
-		ALU->add(decoder->decodeImmediate(*IR), AC);
+		ALU->add(decoder->decodeOperandOne(*IR), AC);
+		ALU->PR(1, PR);
 		break;
 	case SUB:
-		ALU->sub(decoder->decodeAddress(*IR), AC);
+		ALU->sub(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		ALU->PR(1, PR);
 		break;
 	case SUBI:
-		ALU->sub(decoder->decodeImmediate(*IR), AC);
+		ALU->sub(decoder->decodeOperandOne(*IR), AC);
+		ALU->PR(1, PR);
 		break;
 	case MUL:
-		ALU->mul(decoder->decodeAddress(*IR), AC);
+		ALU->mul(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		ALU->PR(1, PR);
 		break;
 	case MULI:
-		ALU->mul(decoder->decodeImmediate(*IR), AC);
+		ALU->mul(decoder->decodeOperandOne(*IR), AC);
+		ALU->PR(1, PR);
 		break;
 	case DIV:
-		ALU->div(decoder->decodeAddress(*IR), AC);
+		ALU->div(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		ALU->PR(1, PR);
 		break;
 	case DIVI:
-		ALU->div(decoder->decodeImmediate(*IR), AC);
+		ALU->div(decoder->decodeOperandOne(*IR), AC);
+		ALU->PR(1, PR);
+		break;
+	case BEQ:
+		ALU->sub(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		!AC ? ALU->PR(decoder->decodeOperandTwo(*IR), PR) : ALU->PR(1, PR);
+		break;
+	case BEQI:
+		ALU->sub(decoder->decodeOperandOne(*IR), AC);
+		!AC ? ALU->PR(decoder->decodeOperandTwo(*IR), PR) : ALU->PR(1, PR);
+		break;
+	case BNE:
+		ALU->sub(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		!AC ? ALU->PR(1, PR) : ALU->PR(decoder->decodeOperandTwo(*IR), PR);
+		break;
+	case BNEI:
+		ALU->sub(decoder->decodeOperandOne(*IR), AC);
+		!AC ? ALU->PR(1, PR) : ALU->PR(decoder->decodeOperandTwo(*IR), PR);
+		break;
+	case SLT:
+		ALU->slt(memory->load(decoder->decodeOperandOne(*IR)), AC);
+		break;
+	case SLTI:
+		ALU->slt(decoder->decodeOperandOne(*IR), AC);
+		break;
+	case J:
+			ALU->PR(decoder->decodeOperandTwo(*IR), PR);
 		break;
 	default:
-		PRincrement = 0;
+		exit(0);
 		break;
 	}
-	if (!(PRincrement))
-		exit(0);
-	incrementPR(PRincrement);
-}
-
-void simpleComputer::incrementPR(signed int increment) {
-	*PR = *PR + increment;
 	fetch();
 }
 
