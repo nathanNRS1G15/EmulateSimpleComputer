@@ -161,6 +161,10 @@ void simpleComputer::execute(void) {
 		memory->save(decoder->decodeOperandOne(*IR), *AC);
 		ALU->PR(1, PR);
 		break;
+	case SPDL:
+		memory->save(memory->load(decoder->decodeOperandOne(*IR)), *AC);
+		ALU->PR(1, PR);
+		break;
 	case ADD:
 		ALU->add(memory->load(decoder->decodeOperandOne(*IR)), AC);
 		ALU->PR(1, PR);

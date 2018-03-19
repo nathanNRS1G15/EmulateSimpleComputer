@@ -1,12 +1,12 @@
-si, 1, 1
-si, 2, 1
-lm, 1
-mul, 2
-sm, 1025
-lm, 1
-addi, 1
+si, 0, 5
+li, 2
+spdl, 0
 sm, 1
-lm, 2
+lm, 0
 addi, 1
-sm, 2
-bnei, 100, -9
+sm, 0
+lm, 1
+addi, 1
+spdl, 0
+sm, 1
+bnei, 5, -7

@@ -60,6 +60,11 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] <<= OPERANDTWO;
 			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
 		}
+		else if(!(opcode.compare("spdl"))) {
+					machineCode[i] = SPDL << OPERANDONE;
+					machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
+					machineCode[i] <<= OPERANDTWO;
+				}
 		else if(!(opcode.compare("add"))) {
 			machineCode[i] = ADD << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));

@@ -7,7 +7,7 @@
 
 #include "debug.h"
 
-static string opcodeLookUp[20] = {"lm", "li", "sm", "si", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
+static string opcodeLookUp[20] = {"lm", "li", "sm", "si", "spdl", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
 
 string getTime(void) {
 	auto now = chrono::system_clock::now();
