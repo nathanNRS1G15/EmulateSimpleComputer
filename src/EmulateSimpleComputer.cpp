@@ -22,14 +22,19 @@ int main() {
 
 	simpleComputer PC;
 	signed int instructions[1];
+
 	signed int instruction = LI;
 	instruction <<= OPERANDONE;
 	instruction |= 100;
 	instruction <<= OPERANDTWO;
 	instructions[0] = instruction;
 
+	instruction = ADDI;
+	instruction <<= OPERANDONE;
+	instruction |= 100;
+	instruction <<= OPERANDTWO;
+	instructions[1] = instruction;
+
 	PC.flashMemory(&instructions[0], 2);
-	PC.fetch();
-	PC.execute();
 	return 0;
 }

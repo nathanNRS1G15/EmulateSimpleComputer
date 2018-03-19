@@ -6,8 +6,7 @@
  */
 
 #include "simpleComputer.h"
-#include <iostream>
-#include <vector>
+#include <cstdlib>
 
 class simpleComputer::ALU {
 public:
@@ -52,9 +51,9 @@ public:
 class simpleComputer::decoder {
 public:
 #if DEBUGMODE
-	unsigned char decodeOpcode(unsigned int instruction) {
+	unsigned char decodeOPRode(unsigned int instruction) {
 		unsigned char result = instruction >> 24;
-		instructionDecodeLog("Opcode", instruction, result);
+		instructionDecodeLog("OPCode", instruction, result);
 		return result;
 	}
 	unsigned short decodeAddress(unsigned int instruction) {
@@ -73,7 +72,7 @@ public:
 		return result;
 	}
 #else
-	unsigned char decodeOpcode(unsigned int instruction) {
+	unsigned char decodeOPRode(unsigned int instruction) {
 		return instruction >> 24;
 	}
 	unsigned short decodeAddress(unsigned int instruction) {
@@ -121,13 +120,16 @@ void simpleComputer::fetch(void) {
 #else
 	*IR = memory->load(address);
 #endif
+
+	execute();
 }
 
 void simpleComputer::execute(void) {
+	unsigned int PRincrement = 1;
 #if DEBUGMODE
-	unsigned char opcode = decoder->decodeOpcode(*IR);
-	CPULog('E', opcode, "na");
-	switch(opcode) {
+	unsigned char oPRode = decoder->decodeOPRode(*IR);
+	CPULog('E', oPRode, "na");
+	switch(oPRode) {
 	case LW:
 		*AC = memory->load(decoder->decodeAddress(*IR));
 		CPULog('R', *AC, "AC");
@@ -137,7 +139,7 @@ void simpleComputer::execute(void) {
 		CPULog('R', *AC, "AC");
 		break;
 #else
-	switch(decoder->decodeOpcode(*IR)) {
+	switch(decoder->decodeOPRode(*IR)) {
 	case LW:
 		*AC = memory->load(decoder->decodeAddress(*IR));
 		break;
@@ -172,11 +174,23 @@ void simpleComputer::execute(void) {
 	case DIVI:
 		ALU->div(decoder->decodeImmediate(*IR), AC);
 		break;
+	default:
+		PRincrement = 0;
+		break;
 	}
+	if (!(PRincrement))
+		exit(0);
+	incrementPR(PRincrement);
+}
+
+void simpleComputer::incrementPR(signed int increment) {
+	*PR = *PR + increment;
+	fetch();
 }
 
 void simpleComputer::flashMemory(signed int *array, signed int size) {
 	for(int i = 100; i < size + 100; i++) {
 		memory->save(i, array[i - 100]);
 	}
+	fetch();
 }

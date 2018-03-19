@@ -16,6 +16,7 @@ class simpleComputer {
 public:
 	void fetch(void);
 	void execute(void);
+	void incrementPR(signed int increment);
 	void flashMemory(signed int *array, signed int size);
 
 protected:
