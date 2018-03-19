@@ -40,7 +40,7 @@ int* convertAssembler(string *asmCode) {
 		secondHalf = asmCode[i].substr(commaPos1 + 1, asmCode[i].length());
 		commaPos2 = secondHalf.find_first_of(',');
 		if(!(opcode.compare("lm"))) {
-			machineCode[i] = LM << OPERANDONE;
+			machineCode[i] = (LM << OPERANDONE) | stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] <<= OPERANDTWO;
 		}
@@ -53,12 +53,12 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] = SM << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] <<= OPERANDTWO;
-			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
 		}
 		else if(!(opcode.compare("si"))) {
-			machineCode[i] = ADD << OPERANDONE;
+			machineCode[i] = SI << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] <<= OPERANDTWO;
+			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
 		}
 		else if(!(opcode.compare("add"))) {
 			machineCode[i] = ADD << OPERANDONE;
@@ -122,7 +122,7 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] = BNEI << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] <<= OPERANDTWO;
-			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
+			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
 		else if(!(opcode.compare("slt"))) {
 			machineCode[i] = SLT << OPERANDONE;
@@ -135,7 +135,8 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] <<= OPERANDTWO;
 		}
 		else if(!(opcode.compare("j"))) {
-			machineCode[i] = (J << (OPERANDONE + OPERANDTWO)) | (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
+			machineCode[i] = J << (OPERANDONE + OPERANDTWO);
+			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
 	}
 	return machineCode;

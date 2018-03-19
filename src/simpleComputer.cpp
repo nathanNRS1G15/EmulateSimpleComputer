@@ -157,11 +157,11 @@ void simpleComputer::execute(void) {
 		ALU->PR(1, PR);
 		break;
 #endif
-	case SM:
+	case SI:
 		memory->save(decoder->decodeOperandOne(*IR), decoder->decodeOperandTwo(*IR));
 		ALU->PR(1, PR);
 		break;
-	case SI:
+	case SM:
 		memory->save(decoder->decodeOperandOne(*IR), *AC);
 		ALU->PR(1, PR);
 		break;
@@ -211,7 +211,7 @@ void simpleComputer::execute(void) {
 		break;
 	case BNEI:
 		ALU->sub(decoder->decodeOperandOne(*IR), AC);
-		!AC ? ALU->PR(1, PR) : ALU->PR(decoder->decodeOperandTwo(*IR), PR);
+		(*AC == 0) ? ALU->PR(1, PR) : ALU->PR(decoder->decodeOperandTwo(*IR), PR);
 		break;
 	case SLT:
 		ALU->slt(memory->load(decoder->decodeOperandOne(*IR)), AC);
