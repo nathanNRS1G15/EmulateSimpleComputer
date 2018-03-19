@@ -8,116 +8,112 @@
 #include "simpleComputer.h"
 #include <cstdlib>
 
-class simpleComputer::ALU {
-public:
 #if DEBUGMODE
-	void add(signed int source, signed int *AC) {
+	void simpleComputer::ALU::add(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC + source;
 		ALULog("add", source, temp, *AC);
 	}
-	void sub(signed int source, signed int *AC) {
+	void simpleComputer::ALU::sub(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC - source;
 		ALULog("sub", source, temp, *AC);
 	}
-	void mul(signed int source, signed int *AC) {
+	void simpleComputer::ALU::mul(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC * source;
 		ALULog("mul", source, temp, *AC);
 	}
-	void div(signed int source, signed int *AC) {
+	void simpleComputer::ALU::div(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = *AC / source;
 		ALULog("div", source, temp, *AC);
 	}
-	void slt(signed int source, signed int *AC) {
+	void simpleComputer::ALU::slt(signed int source, signed int *AC) {
 		signed int temp = *AC;
 		*AC = (source < temp) ? 1 : 0;
 		ALULog("slt", source, temp, *AC);
 	}
-	void PR(signed int increment, signed int *PR) {
+	void simpleComputer::ALU::PR(signed int increment, signed int *PR) {
 		signed int temp = *PR;
 		*PR = *PR + increment;
 		ALULog("PR", increment, temp, *PR);
 	}
 #else
-	void add(signed int source, signed int *target) {
+	void simpleComputer::ALU::add(signed int source, signed int *target) {
 		*target = *target + source;
 	}
-	void sub(signed int source, signed int *target) {
+	void simpleComputer::ALU::sub(signed int source, signed int *target) {
 		*target = *target - source;
 	}
-	void mul(signed int source, signed int *target) {
+	void simpleComputer::ALU::mul(signed int source, signed int *target) {
 		*target = *target * source;
 	}
-	void div(signed int source, signed int *target) {
+	void simpleComputer::ALU::div(signed int source, signed int *target) {
 		*target = *target / source;
 	}
-	void slt(signed int source, signed int *target) {
+	void simpleComputer::ALU::slt(signed int source, signed int *target) {
 		*target = (source < *target) ? 1 : 0;
 	}
-	void PR(signed int increment, signed int *PR) {
+	void simpleComputer::ALU::PR(signed int increment, signed int *PR) {
 		*PR = *PR + increment;
 	}
 #endif
 
-};
-
-class simpleComputer::decoder {
-public:
 #if DEBUGMODE
-	unsigned char decodeOPCode(unsigned int instruction) {
+	unsigned char simpleComputer::decoder::decodeOPCode(unsigned int instruction) {
 		unsigned char result = (instruction >> (OPERANDONE + OPERANDTWO));
 		instructionDecodeLog("OPCode", instruction, result);
 		return result;
 	}
-	unsigned short decodeOperandOne(unsigned int instruction) {
+	unsigned short simpleComputer::decoder::decodeOperandOne(unsigned int instruction) {
 		unsigned short result = (instruction >> OPERANDONE) & 0x1fff;
 		instructionDecodeLog("Operand one", instruction, result);
 		return result;
 	}
-	signed short decodeOperandTwo(unsigned short instruction) {
+	signed short simpleComputer::decoder::decodeOperandTwo(unsigned short instruction) {
 		signed short result = (((instruction & 0x1fff) >> 12) == 1) ? ((instruction & 0x1fff) | 0xe000) : (instruction & 0x1fff);
 		instructionDecodeLog("Operand two", instruction, result);
 		return result;
 	}
 #else
-	unsigned char decodeOPCode(unsigned int instruction) {
-		return (instruction >> (OPERANCEONE + OPERANCETWO));
+	unsigned char simpleComputer::decoder::decodeOPCode(unsigned int instruction) {
+		return (instruction >> (OPERANDONE + OPERANDTWO));
 	}
-	unsigned short decodeOperandOne(unsigned int instruction) {
+	unsigned short simpleComputer::decoder::decodeOperandOne(unsigned int instruction) {
 		return (instruction >> OPERANDONE) & 0x1fff;
 	}
-	signed short decodeOperandTwo(unsigned short instruction) {
+	signed short simpleComputer::decoder::decodeOperandTwo(unsigned short instruction) {
 		return instruction & 0x1fff;
 	}
 #endif
-};
 
-class simpleComputer::memory {
-public:
-	void save(int address, int value) {
 #if DEBUGMODE
-		memoryBlock[address] = value;
+	void simpleComputer::memory::save(signed int address, signed int value) {
+		if(address > MEMORYSIZE)
+			output(value);
+		else
+			memoryBlock[address] = value;
 		memoryLog('S', address, value);
-#else
-		memoryBlock[address] = value;
-#endif
 	}
-	signed int load(int address) {
-#if DEBUGMODE
+	signed int simpleComputer::memory::load(signed int address) {
 		signed int result = memoryBlock[address];
 		memoryLog('L', address, result);
 		return result;
-#else
-		return memoryBlock[address];
-#endif
 	}
+#else
+	void simpleComputer::memory::save(int address, int value) {
+		if(address > MEMORYSIZE)
+			output(value);
+		else
+			memoryBlock[address] = value;
+	}
+	signed int simpleComputer::memory::load(int address) {
+		return memoryBlock[address];
+	}
+#endif
 
-	static signed int memoryBlock[1024];
-};
-signed int simpleComputer::memory::memoryBlock[1024] = {0};
+signed int simpleComputer::memory::memoryBlock[MEMORYSIZE] = {0};
 
 void simpleComputer::fetch(void) {
 #if DEBUGMODE
@@ -147,7 +143,7 @@ void simpleComputer::execute(void) {
 		CPULog('R', *AC, "AC");
 		break;
 #else
-	switch(decoder->decodeOPRode(*IR)) {
+	switch(decoder->decodeOPCode(*IR)) {
 	case LM:
 		*AC = memory->load(decoder->decodeOperandOne(*IR));
 		ALU->PR(1, PR);
@@ -199,15 +195,15 @@ void simpleComputer::execute(void) {
 		break;
 	case BEQ:
 		ALU->sub(memory->load(decoder->decodeOperandOne(*IR)), AC);
-		!AC ? ALU->PR(decoder->decodeOperandTwo(*IR), PR) : ALU->PR(1, PR);
+		(*AC == 0) ? ALU->PR(decoder->decodeOperandTwo(*IR), PR) : ALU->PR(1, PR);
 		break;
 	case BEQI:
 		ALU->sub(decoder->decodeOperandOne(*IR), AC);
-		!AC ? ALU->PR(decoder->decodeOperandTwo(*IR), PR) : ALU->PR(1, PR);
+		(*AC == 0) ? ALU->PR(decoder->decodeOperandTwo(*IR), PR) : ALU->PR(1, PR);
 		break;
 	case BNE:
 		ALU->sub(memory->load(decoder->decodeOperandOne(*IR)), AC);
-		!AC ? ALU->PR(1, PR) : ALU->PR(decoder->decodeOperandTwo(*IR), PR);
+		(*AC == 0) ? ALU->PR(1, PR) : ALU->PR(decoder->decodeOperandTwo(*IR), PR);
 		break;
 	case BNEI:
 		ALU->sub(decoder->decodeOperandOne(*IR), AC);
@@ -230,8 +226,11 @@ void simpleComputer::execute(void) {
 }
 
 void simpleComputer::flashMemory(signed int *array, signed int size) {
-	for(int i = 100; i < size + 100; i++) {
-		memory->save(i, array[i - 100]);
+	for(int i = INSTRUCTIONSTART; i < size + INSTRUCTIONSTART; i++) {
+		memory->save(i, array[i - INSTRUCTIONSTART]);
 	}
-	fetch();
+}
+
+signed int simpleComputer::readMem(signed int address) {
+	return memory->load(address);
 }

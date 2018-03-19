@@ -18,5 +18,8 @@ int main() {
 	simpleComputer PC;
 
 	PC.flashMemory(compiledCode, numLines);
+	PC.startCPU();
+	for(int i = 0; i < 100; i++)
+		cout << PC.readMem(i) << endl;
 	return 0;
 }

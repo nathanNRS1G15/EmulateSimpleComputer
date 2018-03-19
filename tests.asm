@@ -1,5 +1,12 @@
-si, 1, 50
+si, 1, 1
+si, 2, 1
 lm, 1
-addi, 2
+mul, 2
+sm, 1025
+lm, 1
+addi, 1
 sm, 1
-bnei, 70, -3
+lm, 2
+addi, 1
+sm, 2
+bnei, 100, -9
