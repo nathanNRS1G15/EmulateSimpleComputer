@@ -18,6 +18,8 @@ using namespace std;
 #define DEBUGMODE true
 
 string getTime(void);
+void openLogFile(string file);
+void closeLogFile();
 void memoryLog(char function, unsigned int targetAddress, signed int sourceValue);
 void CPULog(char function, signed int input, string regName);
 void ALULog(string function, signed int sourceValue, signed int ACvalue, signed int result);

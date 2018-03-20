@@ -14,13 +14,16 @@
 
 class simpleComputer {
 public:
-	void startCPU(void) { fetch();	}
+	bool startCPU(void) {
+		while (!(fetch()));
+		return true;
+	}
 	void flashMemory(signed int *array, signed int size);
 	signed int readMem(signed int address);
 
 protected:
-	void fetch(void);
-	void execute(void);
+	bool fetch(void);
+	bool execute(void);
 	signed int IRreg = 0;	//IR register, unsigned as all instructions are positive
 	signed int *IR = &IRreg;
 	signed int ACreg = 0;	//AC register, signed as calculations could have negative numbers
@@ -51,7 +54,7 @@ protected:
 			cout << value << endl;
 		}
 
-		static signed int memoryBlock[1024];
+		static signed int memoryBlock[MEMORYSIZE];
 	};
 
 	memory *memory;

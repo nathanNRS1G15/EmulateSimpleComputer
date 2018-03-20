@@ -17,9 +17,13 @@ int main() {
 	int *compiledCode = compileAsm("tests.asm");
 	simpleComputer PC;
 
+#if DEBUGMODE
+	openLogFile("debug.txt");
+#endif
 	PC.flashMemory(compiledCode, numLines);
 	PC.startCPU();
-	for(int i = 0; i < 100; i++)
-		cout << PC.readMem(i) << endl;
+
+	closeLogFile();
+
 	return 0;
 }

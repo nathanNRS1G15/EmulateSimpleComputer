@@ -15,7 +15,7 @@
 
 static signed int numLines = 0;
 string* loadAssemblerFile(string file) {
-	static string code[50];
+	static string code[100];
 	ifstream myFile(file);
 	int i = 0;
 	if(myFile.is_open()) {
@@ -29,7 +29,7 @@ string* loadAssemblerFile(string file) {
 }
 
 int* convertAssembler(string *asmCode) {
-	static int machineCode[50] = {0};
+	static int machineCode[100] = {0};
 	int commaPos1 = 0;
 	int commaPos2 = 0;
 	string secondHalf;
@@ -61,10 +61,15 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
 		}
 		else if(!(opcode.compare("spdl"))) {
-					machineCode[i] = SPDL << OPERANDONE;
-					machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
-					machineCode[i] <<= OPERANDTWO;
-				}
+			machineCode[i] = SPDL << OPERANDONE;
+			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
+			machineCode[i] <<= OPERANDTWO;
+		}
+		else if(!(opcode.compare("lpdl"))) {
+			machineCode[i] = LPDL << OPERANDONE;
+			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
+			machineCode[i] <<= OPERANDTWO;
+		}
 		else if(!(opcode.compare("add"))) {
 			machineCode[i] = ADD << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
@@ -115,13 +120,13 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] = BEQI << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] <<= OPERANDTWO;
-			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
+			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
 		else if(!(opcode.compare("bne"))) {
 			machineCode[i] = BNE << OPERANDONE;
 			machineCode[i] |= stoi(asmCode[i].substr(commaPos1 + 1, asmCode[i].length()));
 			machineCode[i] <<= OPERANDTWO;
-			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
+			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
 		else if(!(opcode.compare("bnei"))) {
 			machineCode[i] = BNEI << OPERANDONE;

@@ -11,8 +11,8 @@
 #define OPCODE 6
 #define OPERANDONE 13
 #define OPERANDTWO 13
-#define INSTRUCTIONSTART 200
-#define MEMORYSIZE 1024
+#define INSTRUCTIONSTART 1400
+#define MEMORYSIZE 2048
 
 /*
  * STRUCTURE OF INSTRUCTION
@@ -24,6 +24,8 @@
  *[	sm	][	memory address	][				]	*(save AC to memory)	Takes the value from the AC register and stores it in the memory address
  *[	si	][	memory address	][	immediate	]	*(save immediated)		Takes immediate value and saves it in memory
  *[	spdl][	memory address 	][				]	*(save to pre-defined	Takes AC and saves it to a memory address specified by another memory location
+ *												  location)
+ *[	lpdl][	memory address	][				]	*(load from pre-defined	Takes AC and loads corresponding memory address value into AC
  *												  location)
  *[	add	][	memory address	][				]	*(add) 					Adds together current value in AC and value from memory address
  *[	addi][	immediate		][				]	*(add immediate)		Adds together current value in AC and immediate value
@@ -47,21 +49,22 @@
 #define SM 		0x03
 #define SI		0x04
 #define SPDL	0x05
-#define ADD 	0x06
-#define ADDI 	0x07
-#define SUB 	0x08
-#define SUBI 	0x09
-#define MUL 	0x0a
-#define MULI 	0x0b
-#define DIV 	0x0c
-#define DIVI 	0x0d
-#define BEQ 	0x0e
-#define BEQI 	0x0f
-#define BNE 	0x10
-#define BNEI 	0x11
-#define SLT		0x12
-#define SLTI	0x13
-#define J		0x14
+#define LPDL	0x06
+#define ADD 	0x07
+#define ADDI 	0x08
+#define SUB 	0x09
+#define SUBI 	0x0a
+#define MUL 	0x0b
+#define MULI 	0x0c
+#define DIV 	0x0d
+#define DIVI 	0x0e
+#define BEQ 	0x0f
+#define BEQI 	0x10
+#define BNE 	0x11
+#define BNEI 	0x12
+#define SLT		0x13
+#define SLTI	0x14
+#define J		0x15
 
 
 
