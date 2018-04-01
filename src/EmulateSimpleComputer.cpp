@@ -22,8 +22,8 @@ int main() {
 #endif
 	PC.flashMemory(compiledCode, numLines);
 	PC.startCPU();
-
+#if DEBUGMODE
 	closeLogFile();
-
+#endif
 	return 0;
 }
