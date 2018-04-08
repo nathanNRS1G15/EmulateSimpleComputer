@@ -58,7 +58,8 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] = SI << OPERANDONE;
 			machineCode[i] |= stoi(secondHalf);
 			machineCode[i] <<= OPERANDTWO;
-			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));		//Inserts operand two, which is number after the second comma position
+			//Inserts operand two, which is number after the second comma position
+			machineCode[i] |= stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length()));
 		}
 		else if(!(opcode.compare("spdl"))) {
 			machineCode[i] = SPDL << OPERANDONE;
@@ -120,8 +121,10 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] = BEQI << OPERANDONE;
 			machineCode[i] |= stoi(secondHalf);
 			machineCode[i] <<= OPERANDTWO;
-			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);	//Due to potential signed number, the leading 1s must be removed by the 0x1fff
-		}																								//As otherwise they will cause corruption by overwriting the other bits
+			//Due to potential signed number, the leading 1s must be removed by the 0x1fff
+			//As otherwise they will cause corruption by overwriting the other bits
+			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
+		}
 		else if(!(opcode.compare("bne"))) {
 			machineCode[i] = BNE << OPERANDONE;
 			machineCode[i] |= stoi(secondHalf);

@@ -62,7 +62,18 @@ void ALULog(string function, signed int sourceValue, signed int ACvalue, signed 
 }
 
 void instructionDecodeLog(string function, unsigned int instruction, int decoded) {
-	logFile << getTime() << ": Decoder: " << function << " : " << instruction << " -> " << decoded << "." << endl;	//Writes time, decoder function, original instruction value and decoded value to log file
+	logFile << getTime() << ": Decoder    : " << function << " : " << instruction << " -> " << decoded << "." << endl;	//Writes time, decoder function, original instruction value and decoded value to log file
 }
 
+void busLogWrite(signed int address, signed int data) {
+	logFile << getTime() << ": BUS        : " << "Write: Address: " << address << ", Data: "<< data << endl;
+}
+
+void busLogRead(signed int address) {
+	logFile << getTime() << ": BUS        : " << "Read: Address: " << address << endl;
+}
+
+void IOlog(signed int address, signed int data) {
+	logFile << getTime() << ": IO     :     " << "Write: Address: " << address << ", Data: "<< data << endl;
+}
 

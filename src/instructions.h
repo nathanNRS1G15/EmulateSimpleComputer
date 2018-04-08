@@ -12,7 +12,6 @@
 #define OPERANDONE 13			//Size of operand one in bits
 #define OPERANDTWO 13			//Size of operand two in bits
 #define INSTRUCTIONSTART 1028	//Location of program instructions starting location in memory
-#define MEMORYSIZE 2048			//Total size of memory
 
 /*
  * STRUCTURE OF INSTRUCTION

@@ -7,7 +7,6 @@
 #include <fstream>
 using namespace std;
 
-
 #include "debug.h"
 #include "simpleComputer.h"
 #include "assembler.h"
