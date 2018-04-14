@@ -2,7 +2,7 @@
  * CPU.h
  *
  *  Created on: Mar 18, 2018
- *      Author: Sil
+ *      Author: nrs1g15
  */
 
 #ifndef SIMPLECOMPUTER_H_
@@ -10,6 +10,8 @@
 
 #include "debug.h"
 #include "instructions.h"
+#include <iostream>
+using namespace std;
 
 #define MEMORYSIZE 2048			//Total size of memory
 
@@ -31,7 +33,7 @@ protected:
 		void mul(signed int source, signed int *AC);	//Multiplies a source value and current value in AC
 		void div(signed int source, signed int *AC);	//Divides a source value and current value in AC
 		void slt(signed int source, signed int *AC);	//Sets AC to 1 if source less than AC or 0 otherwise
-		void PR(signed int increment, signed int *PR);	//Modifies PR register based on increment value
+		void PR(signed int increment, signed int *AC, signed int *PR, char mode);	//Modifies PR register based on increment value
 	};
 	class decoder {
 	public:

@@ -2,7 +2,7 @@
  * assembler.h
  *
  *  Created on: Mar 19, 2018
- *      Author: NRS1G15
+ *      Author: nrs1g15
  */
 
 #ifndef ASSEMBLER_H_

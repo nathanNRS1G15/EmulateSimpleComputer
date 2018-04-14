@@ -2,7 +2,7 @@
  * instructions.h
  *
  *  Created on: Mar 17, 2018
- *      Author: NRS1G15
+ *      Author: nrs1g15
  */
 
 #ifndef INSTRUCTIONS_H_

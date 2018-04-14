@@ -2,7 +2,7 @@
  * debug.cpp
  *
  *  Created on: Mar 18, 2018
- *      Author: NRS1G15
+ *      Author: nrs1g15
  */
 
 #include "debug.h"
@@ -56,7 +56,7 @@ void CPULog(char function, signed int input, string regName) {
 
 void ALULog(string function, signed int sourceValue, signed int ACvalue, signed int result) {
 	if(function == "PR")		//Data written to log file based on if the ALU is altering PR or standard operation
-		logFile << getTime() << ": ALU    : " << function << " : " << "PR -> " << ACvalue << ", source -> "<< sourceValue << " : " << result << " -> PR." <<  endl;	//Writes time, ALU function, current PR value and number being written to PR register to log file
+		logFile << getTime() << ": ALU    : " << function << " : " << "Increment -> " << sourceValue << ", source -> "<< ACvalue << " : " << result << " -> PR." <<  endl;	//Writes time, ALU function, current PR value and number being written to PR register to log file
 	else
 		logFile << getTime() << ": ALU    : " << function << " : " << "AC -> " << ACvalue << ", source -> "<< sourceValue << " : " << result << " -> AC." <<  endl;	//Writes time, ALU function, current AC value, source value and the result of the operation to log file
 }

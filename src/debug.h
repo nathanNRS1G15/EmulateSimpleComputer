@@ -2,7 +2,7 @@
  * debug.h
  *
  *  Created on: Mar 18, 2018
- *      Author: NRS1G15
+ *      Author: nrs1g15
  */
 
 #ifndef DEBUG_H_
@@ -15,7 +15,7 @@
 #include <string>
 using namespace std;
 
-#define DEBUGMODE true					//defines whether the program should be complied in debug mode or not
+#define DEBUGMODE true		 //defines whether the program should be complied in debug mode or not
 
 string getTime(void);					//Gets the current time as a string in form HH:MM:SS
 void openLogFile(string file);			//Opens the wanted file as a log file
