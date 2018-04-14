@@ -15,7 +15,7 @@ using namespace std;
 
 #define MEMORYSIZE 2048			//Total size of memory
 
-class simpleComputer {			//Class that encapsulates the emulator
+class simpleComputer {			//Class that encapsulates the different processor parts
 protected:
 	bool fetch(void);			//Fetches machine code at current PR location and places it in IR
 	bool execute(void);			//Decodes and executes the current instruction in IR
@@ -26,25 +26,29 @@ protected:
 	signed int PRreg = INSTRUCTIONSTART;	//PC register used for keeping track of current point in program. Set to instruction start as thats were starting point it
 	signed int *PR = &PRreg;	//PR register pointer to pass to out of scope functions to allow modifying of PR
 
-	class ALU {
+	class ALU {				//ALU class to emulate an ALU within a CPU
 	public:
 		void add(signed int source, signed int *AC);	//Adds a source value and current value in AC
 		void sub(signed int source, signed int *AC);	//Subtracts a source value and current value in AC
 		void mul(signed int source, signed int *AC);	//Multiplies a source value and current value in AC
 		void div(signed int source, signed int *AC);	//Divides a source value and current value in AC
 		void slt(signed int source, signed int *AC);	//Sets AC to 1 if source less than AC or 0 otherwise
-		void PR(signed int increment, signed int *AC, signed int *PR, char mode);	//Modifies PR register based on increment value
+		/*
+		 * The following modifies PR based on increment value, or if a branch instruction the value of AC is tested
+		 * so then PR is either incremented by 1 or the wanted increment value if branch condition was true.
+		 */
+		void PR(signed int increment, signed int *AC, signed int *PR, char mode);
 	};
-	class decoder {
+	class decoder {			//Decoder class to emulate a decoder within the CPU
 	public:
 		unsigned char decodeOPCode(unsigned int instruction);			//Returns opcode from machine code
 		unsigned short decodeOperandOne(unsigned int instruction);		//Returns operand one from machine code
 		signed short decodeOperandTwo(unsigned short instruction);		//Returns operand two from machine code
 	};
 
-	class systemBus {
+	class systemBus {		//System bus class to emulate a system bus between CPU, memory and IO
 	protected:
-		class memory {
+		class memory {		//Memory class to emulated memory
 		public:
 			void save(int address, int value);		//Allows saving of value to a memory address
 			signed int load(int address);			//Allows loading of value from a memory address
@@ -53,22 +57,22 @@ protected:
 			static signed int memoryBlock[MEMORYSIZE];	//Declaration of memory block
 		};
 
-		class IO {
+		class IO {			//IO class to emulate IO
 		public:
-			void IOoutput(signed int address, signed int data);
+			void IOoutput(signed int address, signed int data);		//Outputs to console, which emulates an external device
 		};
 
-		memory *memory;		//Creates instance of memory within simpleComputer class
-		IO *IO;
+		memory *memory;		//Instance of memory within systemBus class
+		IO *IO;				//Instance of IO within systemBus class
 
 	public:
-		void busWrite(signed int address, signed int data);
-		signed int busRead(signed address);
+		void busWrite(signed int address, signed int data);	//Allows wring to system bus that sends the data to corresponding location
+		signed int busRead(signed address);					//Allows reading from system bus that gets the data from corresponding location
 	};
 
-	systemBus *systemBus;
-	ALU *ALU;			//Creates instance of ALU within simpleComputer class
-	decoder *decoder;	//Creates instance of decoder within simpleComputer class
+	systemBus *systemBus;	//Creates instance of systemBus within simpleComputer class
+	ALU *ALU;				//Creates instance of ALU within simpleComputer class
+	decoder *decoder;		//Creates instance of decoder within simpleComputer class
 
 public:
 	bool startCPU(void) {		//Starting function for the emulator

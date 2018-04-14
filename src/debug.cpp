@@ -66,14 +66,14 @@ void instructionDecodeLog(string function, unsigned int instruction, int decoded
 }
 
 void busLogWrite(signed int address, signed int data) {
-	logFile << getTime() << ": BUS        : " << "Write: Address: " << address << ", Data: "<< data << endl;
+	logFile << getTime() << ": BUS        : " << "Write: Address: " << address << ", Data: "<< data << endl;	//Writes time, bus write mode, write address and data to log file
 }
 
 void busLogRead(signed int address) {
-	logFile << getTime() << ": BUS        : " << "Read: Address: " << address << endl;
+	logFile << getTime() << ": BUS        : " << "Read: Address: " << address << endl;		//Writes time, bus read mode and read address to log file
 }
 
 void IOlog(signed int address, signed int data) {
-	logFile << getTime() << ": IO     :     " << "Write: Address: " << address << ", Data: "<< data << endl;
+	logFile << getTime() << ": IO     :     " << "Write: Address: " << address << ", Data: "<< data << endl;		//Writes time, IO write mode, write address and data to log file
 }
 

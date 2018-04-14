@@ -13,16 +13,16 @@ using namespace std;
 
 int main() {
 
-	int *compiledCode = compileAsm("tests.asm");
-	simpleComputer PC;
+	int *compiledCode = compileAsm("tests.asm");	//Converts asm file into array of machine codes
+	simpleComputer PC;								//Creates instance of emulator
 
 #if DEBUGMODE
-	openLogFile("debug.txt");
+	openLogFile("debug.txt");						//If debugmode is true within debug.h, debug file is opened
 #endif
-	PC.flashMemory(compiledCode, numLines);
-	PC.startCPU();
+	PC.flashMemory(compiledCode, numLines);			//Writes program's machine code into emulator memory
+	PC.startCPU();									//Starts the CPU execution cycles
 #if DEBUGMODE
-	closeLogFile();
+	closeLogFile();									//Closes debug file is program in debug mode
 #endif
 	return 0;
 }

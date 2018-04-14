@@ -41,10 +41,10 @@
 			*PR = *PR + increment;
 			break;
 		case 1:
-			(*AC == 0) ? *PR = *PR + increment : *PR = *PR + 1;
+			(*AC == 0) ? *PR = *PR + increment : *PR = *PR + 1;	//Tests if AC is zero then either adds 1 to PR or increment wanted
 			break;
 		case 2:
-			(*AC == 0) ? *PR = *PR + 1: *PR = *PR + increment;
+			(*AC == 0) ? *PR = *PR + 1: *PR = *PR + increment;	//same as case 1
 			break;
 		}
 		ALULog("PR", increment, temp, *PR);
@@ -116,12 +116,15 @@
 
 #if DEBUGMODE
 	void simpleComputer::systemBus::busWrite(signed int address, signed int data) {
-		busLogWrite(address, data);
+		busLogWrite(address, data);		//Logs system bus was accessed and corresponding requests
+		/* Detects whether the address wanted is within the internal memory block or external,
+		 * then writes to corresponding place. */
 		(address > MEMORYSIZE) ? IO->IOoutput(address, data) : memory->save(address, data);
 	}
 
 	signed int simpleComputer::systemBus::busRead(signed int address) {
-		busLogRead(address);
+		busLogRead(address);			//Logs system bus was accessed and corresponding requests
+		//Since no external reading device is available following only reads from internal memory
 		return memory->load(address);
 	}
 #else
@@ -137,7 +140,7 @@
 #if DEBUGMODE
 	void simpleComputer::systemBus::IO::IOoutput(signed int address, signed int data) {
 		IOlog(address, data);
-		cout << data << endl;
+		cout << data << endl;		//Outputs data to console since thats only available external device
 	}
 #else
 	void simpleComputer::systemBus::IO::IOoutput(signed int address, signed int data) {
@@ -149,7 +152,7 @@ signed int simpleComputer::systemBus::memory::memoryBlock[MEMORYSIZE] = {0}; //I
 
 #if DEBUGMODE
 	void simpleComputer::systemBus::memory::save(signed int address, signed int value) {
-		memoryBlock[address] = value;	//Saves value to memory address location.
+		memoryBlock[address] = value;		//Saves value to memory address location.
 		memoryLog('S', address, value);		//Logs save mode, address and value.
 	}
 	signed int simpleComputer::systemBus::memory::load(signed int address) {
@@ -169,16 +172,16 @@ signed int simpleComputer::systemBus::memory::memoryBlock[MEMORYSIZE] = {0}; //I
 bool simpleComputer::fetch(void) {
 #if DEBUGMODE
 	signed int input = systemBus->busRead(*PR);	//Gets the instruction at memory location corresponding to value in PR.
-	CPULog('F', input, "na");				//Logs Fetch mode, instruction gotten and "na" as last argument isnt needed for fetch log.
-	*IR = input;							//Sets IR register to instruction.
+	CPULog('F', input, "na");					//Logs Fetch mode, instruction gotten and "na" as last argument isnt needed for fetch log.
+	*IR = input;								//Sets IR register to instruction.
 #else
 	*IR = systemBus->busRead(*PR);
 #endif
 
-	if(!(*IR))								//Detects if the instruction is 0, representing end of instructions/end of program.
-		return true;						//Returns true to end CPU execution.
+	if(!(*IR))									//Detects if the instruction is 0, representing end of instructions/end of program.
+		return true;							//Returns true to end CPU execution.
 	else
-		return execute();					//Starts execution on the instruction in IR.
+		return execute();						//Starts execution on the instruction in IR.
 }
 
 bool simpleComputer::execute(void) {
@@ -189,17 +192,17 @@ bool simpleComputer::execute(void) {
 	switch(opCode) {							//Switch dependent on what the decoded instruction was.
 	case LM:									//LM case.
 		*AC = systemBus->busRead(decoder->decodeOperandOne(*IR));	//Loads the value from memory location corresponding to decoded operand one into AC register.
-		ALU->PR(1, AC, PR, 0);
+		ALU->PR(1, AC, PR, 0);					//Sends increment of 1 to ALU PR function to increment PR by 1
 		CPULog('R', *AC, "AC");					//Logs current status of AC register after execution of opcode.
 		break;
 	case LI:
-		*AC = decoder->decodeOperandOne(*IR);	//Due to immediate used the immediate is decoded from operand one and loaded into AC.
+		*AC = decoder->decodeOperandOne(*IR);	//Due to immediate used, the immediate is decoded from operand one and loaded into AC.
 		ALU->PR(1, AC, PR, 0);
 		CPULog('R', *AC, "AC");
 		break;
 	case LPDL:
 		/*
-		 * For LPDL and similar instructions; it decodes the memory location storing the wanted memory address from operand one, then gets the value from this decoded memory location,
+		 * Decodes the memory location storing the wanted memory address from operand one, then gets the value from this decoded memory location,
 		 * then loads the value from the corresponding memory address into AC. */
 		*AC = systemBus->busRead(systemBus->busRead(decoder->decodeOperandOne(*IR)));
 		ALU->PR(1, AC, PR, 0);
@@ -228,11 +231,11 @@ bool simpleComputer::execute(void) {
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case SM:
-		systemBus->busWrite(decoder->decodeOperandOne(*IR), *AC);			//Saves AC value to memory address decoded from operand one.
+		systemBus->busWrite(decoder->decodeOperandOne(*IR), *AC);		//Saves AC value to memory address decoded from operand one.
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case SPDL:
-		//For SPDL instruction; Saves AC value to memory address corresponding to value in memory location, at address decoded from operand one.
+		//Saves AC value to memory address corresponding to value in memory location, at address decoded from operand one.
 		systemBus->busWrite(systemBus->busRead(decoder->decodeOperandOne(*IR)), *AC);
 		ALU->PR(1, AC, PR, 0);
 		break;
@@ -242,7 +245,7 @@ bool simpleComputer::execute(void) {
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case ADDI:
-		ALU->add(decoder->decodeOperandOne(*IR), AC);				//Sends decoded value from operand one to ALU to be subtracted, along with AC register pointer
+		ALU->add(decoder->decodeOperandOne(*IR), AC);			//Sends decoded value from operand one to ALU to be subtracted, along with AC register pointer
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case SUB:
@@ -251,7 +254,7 @@ bool simpleComputer::execute(void) {
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case SUBI:
-		ALU->sub(decoder->decodeOperandOne(*IR), AC);				//Sends decoded value from operand one to ALU to be added, along with AC register pointer
+		ALU->sub(decoder->decodeOperandOne(*IR), AC);			//Sends decoded value from operand one to ALU to be added, along with AC register pointer
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case MUL:
@@ -295,19 +298,21 @@ bool simpleComputer::execute(void) {
 		ALU->PR(decoder->decodeOperandTwo(*IR), AC, PR, 2);
 		break;
 	case SLT:
-		//Sends value at memory address corresponding to decoded operand one to ALU to be checked against AC, along with AC register pointer
+		//Sends value at memory address corresponding to decoded operand one to ALU to be checked against AC
 		ALU->slt(systemBus->busRead(decoder->decodeOperandOne(*IR)), AC);
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case SLTI:
-		ALU->slt(decoder->decodeOperandOne(*IR), AC);				//Sends decoded value from operand one to ALU to be divided, along with AC register pointer
+		ALU->slt(decoder->decodeOperandOne(*IR), AC);
 		ALU->PR(1, AC, PR, 0);
 		break;
 	case J:
-		ALU->PR(decoder->decodeOperandTwo(*IR), AC, PR, 0);			//Sends decoded value from operand one to ALU to be added to PR, along with PR register pointer
+		//Sends decoded value from operand one to ALU to be added to PR
+		ALU->PR(decoder->decodeOperandTwo(*IR), AC, PR, 0);
 		break;
 	default:
-		status = true;		//If opcode decoded is none of the above, status is set to true to show end of program
+		//If opcode decoded is none of the above, status is set to true to show end of program or program error
+		status = true;
 		break;
 	}
 	return status;
