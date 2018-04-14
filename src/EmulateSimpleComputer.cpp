@@ -13,7 +13,7 @@ using namespace std;
 
 int main() {
 
-	int *compiledCode = compileAsm("tests.asm");	//Converts asm file into array of machine codes
+	int *compiledCode = compileAsm("PrimeNumbersProgram.asm");	//Converts asm file into array of machine codes
 	simpleComputer PC;								//Creates instance of emulator
 
 #if DEBUGMODE

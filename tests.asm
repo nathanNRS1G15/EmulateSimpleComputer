@@ -1,12 +1,8 @@
-si, 1, 1
-si, 2, 1
-lm, 1
-mul, 2
-sm, 3000
-lm, 1
-addi, 1
-sm, 1
-lm, 2
-addi, 1
-sm, 2
-bnei, 100, -9
+si, 0, 100
+lm, 0
+slti, 99
+beqi, 1, 3
+si, 3000, 10
+j, 2
+si, 3000, 11
+si, 3000, 12
