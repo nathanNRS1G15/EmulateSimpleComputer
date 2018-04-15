@@ -19,25 +19,21 @@ class simpleComputer {			//Class that encapsulates the different processor parts
 protected:
 	bool fetch(void);			//Fetches machine code at current PR location and places it in IR
 	bool execute(void);			//Decodes and executes the current instruction in IR
-	signed int IRreg = 0;		//IR register used for storing instructions
-	signed int *IR = &IRreg;	//IR register pointer to pass to out of scope functions to allow modifying of IR
-	signed int ACreg = 0;		//AC register used for storing result of ALU
-	signed int *AC = &ACreg;	//AC register pointer to pass to out of scope functions to allow modifying of AC
-	signed int PRreg = INSTRUCTIONSTART;	//PC register used for keeping track of current point in program. Set to instruction start as thats were starting point it
-	signed int *PR = &PRreg;	//PR register pointer to pass to out of scope functions to allow modifying of PR
-
+	signed int IR = 0;		//IR register used for storing instructions
+	signed int AC = 0;		//AC register used for storing result of ALU
+	signed int PR = INSTRUCTIONSTART;	//PC register used for keeping track of current point in program. Set to instruction start as thats were starting point it
 	class ALU {				//ALU class to emulate an ALU within a CPU
 	public:
-		void add(signed int source, signed int *AC);	//Adds a source value and current value in AC
-		void sub(signed int source, signed int *AC);	//Subtracts a source value and current value in AC
-		void mul(signed int source, signed int *AC);	//Multiplies a source value and current value in AC
-		void div(signed int source, signed int *AC);	//Divides a source value and current value in AC
-		void slt(signed int source, signed int *AC);	//Sets AC to 1 if source less than AC or 0 otherwise
+		signed int add(signed int source, signed int AC);	//Adds a source value and current value in AC
+		signed int sub(signed int source, signed int AC);	//Subtracts a source value and current value in AC
+		signed int mul(signed int source, signed int AC);	//Multiplies a source value and current value in AC
+		signed int div(signed int source, signed int AC);	//Divides a source value and current value in AC
+		signed int slt(signed int source, signed int AC);	//Sets AC to 1 if source less than AC or 0 otherwise
 		/*
 		 * The following modifies PR based on increment value, or if a branch instruction the value of AC is tested
 		 * so then PR is either incremented by 1 or the wanted increment value if branch condition was true.
 		 */
-		void PR(signed int increment, signed int *AC, signed int *PR, char mode);
+		signed int PR(signed int increment, signed int AC, signed int PR, char mode);
 	};
 	class decoder {			//Decoder class to emulate a decoder within the CPU
 	public:
