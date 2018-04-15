@@ -19,8 +19,8 @@ class simpleComputer {			//Class that encapsulates the different processor parts
 protected:
 	bool fetch(void);			//Fetches machine code at current PR location and places it in IR
 	bool execute(void);			//Decodes and executes the current instruction in IR
-	signed int IR = 0;		//IR register used for storing instructions
-	signed int AC = 0;		//AC register used for storing result of ALU
+	signed int IR = 0;					//IR register used for storing instructions
+	signed int AC = 0;					//AC register used for storing result of ALU
 	signed int PR = INSTRUCTIONSTART;	//PC register used for keeping track of current point in program. Set to instruction start as thats were starting point it
 	class ALU {				//ALU class to emulate an ALU within a CPU
 	public:

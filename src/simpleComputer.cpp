@@ -63,32 +63,34 @@
 	}
 #else			//If DEBUGMODE is not set the following code compiles. Same functionality as above but debug code removed
 	signed int simpleComputer::ALU::add(signed int source, signed int AC) {
-		AC = AC + source;
+		return AC + source;
 	}
 	signed int simpleComputer::ALU::sub(signed int source, signed int AC) {
-		AC = AC - source;
+		return AC - source;
 	}
 	signed int simpleComputer::ALU::mul(signed int source, signed int AC) {
-		AC = AC  source;
+		return AC * source;
 	}
 	signed int simpleComputer::ALU::div(signed int source, signed int AC) {
-		AC = AC / source;
+		return AC / source;
 	}
 	signed int simpleComputer::ALU::slt(signed int source, signed int AC) {
-		AC = (source < AC) ? 1 : 0;
+		return (source < AC) ? 1 : 0;
 	}
 	signed int simpleComputer::ALU::PR(signed int increment, signed int AC, signed int PR, char mode) {
+		signed int result;
 		switch (mode) { //Mode 0 is just add increment to PR, mode 2 is BEQ and mode 3 is BNE
 		case 0:
-			PR = PR + increment;
+			result = PR + increment;
 			break;
 		case 1:
-			(AC == 0) ? PR = PR + increment : PR = PR + 1;
+			(AC == 0) ? result = PR + increment : result = PR + 1;
 			break;
 		case 2:
-			(AC == 0) ? PR = PR + 1: PR = PR + increment;
+			(AC == 0) ? result = PR + 1: result = PR + increment;
 			break;
 		}
+		return result;
 	}
 #endif
 
@@ -188,11 +190,7 @@ bool simpleComputer::fetch(void) {
 #else
 	IR = systemBus->busRead(PR);
 #endif
-
-	if(!(IR))									//Detects if the instruction is 0, representing end of instructions/end of program.
-		return true;							//Returns true to end CPU execution.
-	else
-		return execute();						//Starts execution on the instruction in IR.
+	return execute();						//Starts execution on the instruction in IR.
 }
 
 bool simpleComputer::execute(void) {
@@ -223,15 +221,15 @@ bool simpleComputer::execute(void) {
 	switch(decoder->decodeOPCode(IR)) {
 	case LM:
 		AC = systemBus->busRead(decoder->decodeOperandOne(IR));
-		ALU->PR(1, AC, PR, 0);
+		PR = ALU->PR(1, AC, PR, 0);
 		break;
 	case LI:
 		AC = decoder->decodeOperandOne(IR);
-		ALU->PR(1, AC, PR, 0);
+		PR = ALU->PR(1, AC, PR, 0);
 		break;
 	case LPDL:
 		AC = systemBus->busRead(systemBus->busRead(decoder->decodeOperandOne(IR)));
-		ALU->PR(1, AC, PR, 0);
+		PR = ALU->PR(1, AC, PR, 0);
 		break;
 #endif
 	case SI:
