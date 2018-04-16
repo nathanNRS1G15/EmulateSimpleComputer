@@ -8,11 +8,11 @@
 #include "debug.h"
 
 //Array of all opcodes, so when, for example, 0x01 opcode is called debug can look up 0x01 and see its "li"
-static string opcodeLookUp[25] = {"lm", "li", "sm", "si", "spdl", "lpdl", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
+static string opcodeLookUp[25] = {"ERROR", "lm", "li", "sm", "si", "spdl", "lpdl", "add", "addi", "sub", "subi", "mul", "muli", "div", "divi", "beq", "beqi", "bne", "bnei", "slt", "slti", "j"};
 ofstream logFile;
 
 void openLogFile(string file) {
-	logFile.open(file, ios::app); //Opens argument file in append mode which is now in the global variable
+	logFile.open(file, ios::trunc); //Opens argument file in append mode which is now in the global variable
 }
 
 void closeLogFile(void) {
@@ -33,10 +33,10 @@ string getTime(void) {
 void memoryLog(char function, unsigned int targetAddress, signed int sourceValue) {
 	switch (function) { 		//Switch based on the current memory mode; save or load
 	case 'S':					//Save mode
-		logFile << getTime() << ": Memory : " << function << " : " << sourceValue << " -> ["<< targetAddress << "]." <<  endl;	//Writes current time, memory mode, source and target address to log file
+		logFile << getTime() << ": Memory : " << function << " : 0x" << hex << sourceValue << dec << " -> [" << targetAddress << "]." <<  endl;	//Writes current time, memory mode, source and target address to log file
 		break;
 	case 'L':					//Load mode
-		logFile << getTime() << ": Memory : " << function << " : ["<< targetAddress << "] -> " << sourceValue << "." <<  endl;	//Writes current time, memory mode, source and target address to log file
+		logFile << getTime() << ": Memory : " << function << " : [" << targetAddress << "] -> 0x" << hex << sourceValue << dec <<"." <<  endl;	//Writes current time, memory mode, source and target address to log file
 		break;
 	}
 }
@@ -44,10 +44,10 @@ void memoryLog(char function, unsigned int targetAddress, signed int sourceValue
 void CPULog(char function, signed int input, string regName) {
 	switch(function) {			//Switch based on the current CPU mode; Fetch, Execute, Register manipulation
 	case 'F':					//Fetch mode
-		logFile << getTime() << ": CPU    : " << function << " : " << input << " -> IR." <<  endl;	//Writes time, CPU function and variable value being loaded into IR to log file
+		logFile << getTime() << ": CPU    : " << function << " : 0x" << hex << input << dec << " -> IR." <<  endl;	//Writes time, CPU function and variable value being loaded into IR to log file
 		break;
 	case 'E':					//Execute mode
-		logFile << getTime() << ": CPU    : " << function << " : " << opcodeLookUp[input - 1] << "." <<  endl;	//Writes time, CPU function and decoded opcode to log file
+		logFile << getTime() << ": CPU    : " << function << " : " << opcodeLookUp[input] << "." <<  endl;	//Writes time, CPU function and decoded opcode to log file
 		break;
 	case 'R':					//Register mode
 		logFile << getTime() << ": CPU    : " << regName << " : " << input << "." <<  endl;		//Writes time, CPU function, register and its current value to log file
@@ -62,11 +62,11 @@ void ALULog(string function, signed int sourceValue, signed int ACvalue, signed 
 }
 
 void instructionDecodeLog(string function, unsigned int instruction, int decoded) {
-	logFile << getTime() << ": Decoder    : " << function << " : " << instruction << " -> " << decoded << "." << endl;	//Writes time, decoder function, original instruction value and decoded value to log file
+	logFile << getTime() << ": Decoder    : " << function << " : 0x" << hex << instruction << dec << " -> " << decoded << "." << endl;	//Writes time, decoder function, original instruction value and decoded value to log file
 }
 
 void busLogWrite(signed int address, signed int data) {
-	logFile << getTime() << ": BUS        : " << "Write: Address: " << address << ", Data: "<< data << endl;	//Writes time, bus write mode, write address and data to log file
+	logFile << getTime() << ": BUS        : " << "Write: Address: " << address << ", Data: 0x"<< hex << data << dec << endl;	//Writes time, bus write mode, write address and data to log file
 }
 
 void busLogRead(signed int address) {

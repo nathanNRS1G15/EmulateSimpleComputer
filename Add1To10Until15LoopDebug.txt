@@ -1,0 +1,228 @@
+10:17:40: BUS        : Write: Address: 1028, Data: 268435466
+10:17:40: Memory : S : 268435466 -> [1028].
+10:17:40: BUS        : Write: Address: 1029, Data: 67108864
+10:17:40: Memory : S : 67108864 -> [1029].
+10:17:40: BUS        : Write: Address: 1030, Data: 536879104
+10:17:40: Memory : S : 536879104 -> [1030].
+10:17:40: BUS        : Write: Address: 1031, Data: 201326592
+10:17:40: Memory : S : 201326592 -> [1031].
+10:17:40: BUS        : Write: Address: 1032, Data: 1208090621
+10:17:40: Memory : S : 1208090621 -> [1032].
+10:17:40: BUS        : Write: Address: 1033, Data: 67108864
+10:17:40: Memory : S : 67108864 -> [1033].
+10:17:40: BUS        : Write: Address: 1034, Data: 225902592
+10:17:40: Memory : S : 225902592 -> [1034].
+10:17:40: BUS        : Read: Address: 1028
+10:17:40: Memory : L : [1028] -> 268435466.
+10:17:40: CPU    : F : 268435466 -> IR.
+10:17:40: Decoder    : OPCode : 268435466 -> 4.
+10:17:40: CPU    : E : si.
+10:17:40: Decoder    : Operand two : 10 -> 10.
+10:17:40: Decoder    : Operand one : 268435466 -> 0.
+10:17:40: BUS        : Write: Address: 0, Data: 10
+10:17:40: Memory : S : 10 -> [0].
+10:17:40: ALU    : PR : Increment -> 1, source -> 1028 : 1029 -> PR.
+10:17:40: BUS        : Read: Address: 1029
+10:17:40: Memory : L : [1029] -> 67108864.
+10:17:40: CPU    : F : 67108864 -> IR.
+10:17:40: Decoder    : OPCode : 67108864 -> 1.
+10:17:40: CPU    : E : lm.
+10:17:40: Decoder    : Operand one : 67108864 -> 0.
+10:17:40: BUS        : Read: Address: 0
+10:17:40: Memory : L : [0] -> 10.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+10:17:40: CPU    : AC : 10.
+10:17:40: BUS        : Read: Address: 1030
+10:17:40: Memory : L : [1030] -> 536879104.
+10:17:40: CPU    : F : 536879104 -> IR.
+10:17:40: Decoder    : OPCode : 536879104 -> 8.
+10:17:40: CPU    : E : addi.
+10:17:40: Decoder    : Operand one : 536879104 -> 1.
+10:17:40: ALU    : add : AC -> 10, source -> 1 : 11 -> AC.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+10:17:40: BUS        : Read: Address: 1031
+10:17:40: Memory : L : [1031] -> 201326592.
+10:17:40: CPU    : F : 201326592 -> IR.
+10:17:40: Decoder    : OPCode : 201326592 -> 3.
+10:17:40: CPU    : E : sm.
+10:17:40: Decoder    : Operand one : 201326592 -> 0.
+10:17:40: BUS        : Write: Address: 0, Data: 11
+10:17:40: Memory : S : 11 -> [0].
+10:17:40: ALU    : PR : Increment -> 1, source -> 1031 : 1032 -> PR.
+10:17:40: BUS        : Read: Address: 1032
+10:17:40: Memory : L : [1032] -> 1208090621.
+10:17:40: CPU    : F : 1208090621 -> IR.
+10:17:40: Decoder    : OPCode : 1208090621 -> 18.
+10:17:40: CPU    : E : bnei.
+10:17:40: Decoder    : Operand one : 1208090621 -> 15.
+10:17:40: ALU    : sub : AC -> 11, source -> 15 : -4 -> AC.
+10:17:40: Decoder    : Operand two : 65533 -> -3.
+10:17:40: ALU    : PR : Increment -> -3, source -> 1032 : 1029 -> PR.
+10:17:40: BUS        : Read: Address: 1029
+10:17:40: Memory : L : [1029] -> 67108864.
+10:17:40: CPU    : F : 67108864 -> IR.
+10:17:40: Decoder    : OPCode : 67108864 -> 1.
+10:17:40: CPU    : E : lm.
+10:17:40: Decoder    : Operand one : 67108864 -> 0.
+10:17:40: BUS        : Read: Address: 0
+10:17:40: Memory : L : [0] -> 11.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+10:17:40: CPU    : AC : 11.
+10:17:40: BUS        : Read: Address: 1030
+10:17:40: Memory : L : [1030] -> 536879104.
+10:17:40: CPU    : F : 536879104 -> IR.
+10:17:40: Decoder    : OPCode : 536879104 -> 8.
+10:17:40: CPU    : E : addi.
+10:17:40: Decoder    : Operand one : 536879104 -> 1.
+10:17:40: ALU    : add : AC -> 11, source -> 1 : 12 -> AC.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+10:17:40: BUS        : Read: Address: 1031
+10:17:40: Memory : L : [1031] -> 201326592.
+10:17:40: CPU    : F : 201326592 -> IR.
+10:17:40: Decoder    : OPCode : 201326592 -> 3.
+10:17:40: CPU    : E : sm.
+10:17:40: Decoder    : Operand one : 201326592 -> 0.
+10:17:40: BUS        : Write: Address: 0, Data: 12
+10:17:40: Memory : S : 12 -> [0].
+10:17:40: ALU    : PR : Increment -> 1, source -> 1031 : 1032 -> PR.
+10:17:40: BUS        : Read: Address: 1032
+10:17:40: Memory : L : [1032] -> 1208090621.
+10:17:40: CPU    : F : 1208090621 -> IR.
+10:17:40: Decoder    : OPCode : 1208090621 -> 18.
+10:17:40: CPU    : E : bnei.
+10:17:40: Decoder    : Operand one : 1208090621 -> 15.
+10:17:40: ALU    : sub : AC -> 12, source -> 15 : -3 -> AC.
+10:17:40: Decoder    : Operand two : 65533 -> -3.
+10:17:40: ALU    : PR : Increment -> -3, source -> 1032 : 1029 -> PR.
+10:17:40: BUS        : Read: Address: 1029
+10:17:40: Memory : L : [1029] -> 67108864.
+10:17:40: CPU    : F : 67108864 -> IR.
+10:17:40: Decoder    : OPCode : 67108864 -> 1.
+10:17:40: CPU    : E : lm.
+10:17:40: Decoder    : Operand one : 67108864 -> 0.
+10:17:40: BUS        : Read: Address: 0
+10:17:40: Memory : L : [0] -> 12.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+10:17:40: CPU    : AC : 12.
+10:17:40: BUS        : Read: Address: 1030
+10:17:40: Memory : L : [1030] -> 536879104.
+10:17:40: CPU    : F : 536879104 -> IR.
+10:17:40: Decoder    : OPCode : 536879104 -> 8.
+10:17:40: CPU    : E : addi.
+10:17:40: Decoder    : Operand one : 536879104 -> 1.
+10:17:40: ALU    : add : AC -> 12, source -> 1 : 13 -> AC.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+10:17:40: BUS        : Read: Address: 1031
+10:17:40: Memory : L : [1031] -> 201326592.
+10:17:40: CPU    : F : 201326592 -> IR.
+10:17:40: Decoder    : OPCode : 201326592 -> 3.
+10:17:40: CPU    : E : sm.
+10:17:40: Decoder    : Operand one : 201326592 -> 0.
+10:17:40: BUS        : Write: Address: 0, Data: 13
+10:17:40: Memory : S : 13 -> [0].
+10:17:40: ALU    : PR : Increment -> 1, source -> 1031 : 1032 -> PR.
+10:17:40: BUS        : Read: Address: 1032
+10:17:40: Memory : L : [1032] -> 1208090621.
+10:17:40: CPU    : F : 1208090621 -> IR.
+10:17:40: Decoder    : OPCode : 1208090621 -> 18.
+10:17:40: CPU    : E : bnei.
+10:17:40: Decoder    : Operand one : 1208090621 -> 15.
+10:17:40: ALU    : sub : AC -> 13, source -> 15 : -2 -> AC.
+10:17:40: Decoder    : Operand two : 65533 -> -3.
+10:17:40: ALU    : PR : Increment -> -3, source -> 1032 : 1029 -> PR.
+10:17:40: BUS        : Read: Address: 1029
+10:17:40: Memory : L : [1029] -> 67108864.
+10:17:40: CPU    : F : 67108864 -> IR.
+10:17:40: Decoder    : OPCode : 67108864 -> 1.
+10:17:40: CPU    : E : lm.
+10:17:40: Decoder    : Operand one : 67108864 -> 0.
+10:17:40: BUS        : Read: Address: 0
+10:17:40: Memory : L : [0] -> 13.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+10:17:40: CPU    : AC : 13.
+10:17:40: BUS        : Read: Address: 1030
+10:17:40: Memory : L : [1030] -> 536879104.
+10:17:40: CPU    : F : 536879104 -> IR.
+10:17:40: Decoder    : OPCode : 536879104 -> 8.
+10:17:40: CPU    : E : addi.
+10:17:40: Decoder    : Operand one : 536879104 -> 1.
+10:17:40: ALU    : add : AC -> 13, source -> 1 : 14 -> AC.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+10:17:40: BUS        : Read: Address: 1031
+10:17:40: Memory : L : [1031] -> 201326592.
+10:17:40: CPU    : F : 201326592 -> IR.
+10:17:40: Decoder    : OPCode : 201326592 -> 3.
+10:17:40: CPU    : E : sm.
+10:17:40: Decoder    : Operand one : 201326592 -> 0.
+10:17:40: BUS        : Write: Address: 0, Data: 14
+10:17:40: Memory : S : 14 -> [0].
+10:17:40: ALU    : PR : Increment -> 1, source -> 1031 : 1032 -> PR.
+10:17:40: BUS        : Read: Address: 1032
+10:17:40: Memory : L : [1032] -> 1208090621.
+10:17:40: CPU    : F : 1208090621 -> IR.
+10:17:40: Decoder    : OPCode : 1208090621 -> 18.
+10:17:40: CPU    : E : bnei.
+10:17:40: Decoder    : Operand one : 1208090621 -> 15.
+10:17:40: ALU    : sub : AC -> 14, source -> 15 : -1 -> AC.
+10:17:40: Decoder    : Operand two : 65533 -> -3.
+10:17:40: ALU    : PR : Increment -> -3, source -> 1032 : 1029 -> PR.
+10:17:40: BUS        : Read: Address: 1029
+10:17:40: Memory : L : [1029] -> 67108864.
+10:17:40: CPU    : F : 67108864 -> IR.
+10:17:40: Decoder    : OPCode : 67108864 -> 1.
+10:17:40: CPU    : E : lm.
+10:17:40: Decoder    : Operand one : 67108864 -> 0.
+10:17:40: BUS        : Read: Address: 0
+10:17:40: Memory : L : [0] -> 14.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+10:17:40: CPU    : AC : 14.
+10:17:40: BUS        : Read: Address: 1030
+10:17:40: Memory : L : [1030] -> 536879104.
+10:17:40: CPU    : F : 536879104 -> IR.
+10:17:40: Decoder    : OPCode : 536879104 -> 8.
+10:17:40: CPU    : E : addi.
+10:17:40: Decoder    : Operand one : 536879104 -> 1.
+10:17:40: ALU    : add : AC -> 14, source -> 1 : 15 -> AC.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+10:17:40: BUS        : Read: Address: 1031
+10:17:40: Memory : L : [1031] -> 201326592.
+10:17:40: CPU    : F : 201326592 -> IR.
+10:17:40: Decoder    : OPCode : 201326592 -> 3.
+10:17:40: CPU    : E : sm.
+10:17:40: Decoder    : Operand one : 201326592 -> 0.
+10:17:40: BUS        : Write: Address: 0, Data: 15
+10:17:40: Memory : S : 15 -> [0].
+10:17:40: ALU    : PR : Increment -> 1, source -> 1031 : 1032 -> PR.
+10:17:40: BUS        : Read: Address: 1032
+10:17:40: Memory : L : [1032] -> 1208090621.
+10:17:40: CPU    : F : 1208090621 -> IR.
+10:17:40: Decoder    : OPCode : 1208090621 -> 18.
+10:17:40: CPU    : E : bnei.
+10:17:40: Decoder    : Operand one : 1208090621 -> 15.
+10:17:40: ALU    : sub : AC -> 15, source -> 15 : 0 -> AC.
+10:17:40: Decoder    : Operand two : 65533 -> -3.
+10:17:40: ALU    : PR : Increment -> -3, source -> 1032 : 1033 -> PR.
+10:17:40: BUS        : Read: Address: 1033
+10:17:40: Memory : L : [1033] -> 67108864.
+10:17:40: CPU    : F : 67108864 -> IR.
+10:17:40: Decoder    : OPCode : 67108864 -> 1.
+10:17:40: CPU    : E : lm.
+10:17:40: Decoder    : Operand one : 67108864 -> 0.
+10:17:40: BUS        : Read: Address: 0
+10:17:40: Memory : L : [0] -> 15.
+10:17:40: ALU    : PR : Increment -> 1, source -> 1033 : 1034 -> PR.
+10:17:40: CPU    : AC : 15.
+10:17:40: BUS        : Read: Address: 1034
+10:17:40: Memory : L : [1034] -> 225902592.
+10:17:40: CPU    : F : 225902592 -> IR.
+10:17:40: Decoder    : OPCode : 225902592 -> 3.
+10:17:40: CPU    : E : sm.
+10:17:40: Decoder    : Operand one : 225902592 -> 3000.
+10:17:40: BUS        : Write: Address: 3000, Data: 15
+10:17:40: IO     :     Write: Address: 3000, Data: 15
+10:17:40: ALU    : PR : Increment -> 1, source -> 1034 : 1035 -> PR.
+10:17:40: BUS        : Read: Address: 1035
+10:17:40: Memory : L : [1035] -> 0.
+10:17:40: CPU    : F : 0 -> IR.
+10:17:40: Decoder    : OPCode : 0 -> 0.
+10:17:40: CPU    : E : ERROR.

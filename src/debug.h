@@ -15,7 +15,7 @@
 #include <string>
 using namespace std;
 
-#define DEBUGMODE false		 //defines whether the program should be complied in debug mode or not
+#define DEBUGMODE true		 //defines whether the program should be complied in debug mode or not
 
 string getTime(void);					//Gets the current time as a string in form HH:MM:SS
 void openLogFile(string file);			//Opens the wanted file as a log file

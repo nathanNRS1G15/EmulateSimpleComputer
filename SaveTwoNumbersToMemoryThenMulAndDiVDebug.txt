@@ -1,0 +1,87 @@
+10:19:33: BUS        : Write: Address: 1028, Data: 268435476
+10:19:33: Memory : S : 268435476 -> [1028].
+10:19:33: BUS        : Write: Address: 1029, Data: 268443650
+10:19:33: Memory : S : 268443650 -> [1029].
+10:19:33: BUS        : Write: Address: 1030, Data: 67108864
+10:19:33: Memory : S : 67108864 -> [1030].
+10:19:33: BUS        : Write: Address: 1031, Data: 738205696
+10:19:33: Memory : S : 738205696 -> [1031].
+10:19:33: BUS        : Write: Address: 1032, Data: 872423424
+10:19:33: Memory : S : 872423424 -> [1032].
+10:19:33: BUS        : Write: Address: 1033, Data: 201351168
+10:19:33: Memory : S : 201351168 -> [1033].
+10:19:33: BUS        : Write: Address: 1034, Data: 225902592
+10:19:33: Memory : S : 225902592 -> [1034].
+10:19:33: BUS        : Read: Address: 1028
+10:19:33: Memory : L : [1028] -> 268435476.
+10:19:33: CPU    : F : 268435476 -> IR.
+10:19:33: Decoder    : OPCode : 268435476 -> 4.
+10:19:33: CPU    : E : si.
+10:19:33: Decoder    : Operand two : 20 -> 20.
+10:19:33: Decoder    : Operand one : 268435476 -> 0.
+10:19:33: BUS        : Write: Address: 0, Data: 20
+10:19:33: Memory : S : 20 -> [0].
+10:19:33: ALU    : PR : Increment -> 1, source -> 1028 : 1029 -> PR.
+10:19:33: BUS        : Read: Address: 1029
+10:19:33: Memory : L : [1029] -> 268443650.
+10:19:33: CPU    : F : 268443650 -> IR.
+10:19:33: Decoder    : OPCode : 268443650 -> 4.
+10:19:33: CPU    : E : si.
+10:19:33: Decoder    : Operand two : 8194 -> 2.
+10:19:33: Decoder    : Operand one : 268443650 -> 1.
+10:19:33: BUS        : Write: Address: 1, Data: 2
+10:19:33: Memory : S : 2 -> [1].
+10:19:33: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+10:19:33: BUS        : Read: Address: 1030
+10:19:33: Memory : L : [1030] -> 67108864.
+10:19:33: CPU    : F : 67108864 -> IR.
+10:19:33: Decoder    : OPCode : 67108864 -> 1.
+10:19:33: CPU    : E : lm.
+10:19:33: Decoder    : Operand one : 67108864 -> 0.
+10:19:33: BUS        : Read: Address: 0
+10:19:33: Memory : L : [0] -> 20.
+10:19:33: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+10:19:33: CPU    : AC : 20.
+10:19:33: BUS        : Read: Address: 1031
+10:19:33: Memory : L : [1031] -> 738205696.
+10:19:33: CPU    : F : 738205696 -> IR.
+10:19:33: Decoder    : OPCode : 738205696 -> 11.
+10:19:33: CPU    : E : mul.
+10:19:33: Decoder    : Operand one : 738205696 -> 1.
+10:19:33: BUS        : Read: Address: 1
+10:19:33: Memory : L : [1] -> 2.
+10:19:33: ALU    : mul : AC -> 20, source -> 2 : 40 -> AC.
+10:19:33: ALU    : PR : Increment -> 1, source -> 1031 : 1032 -> PR.
+10:19:33: BUS        : Read: Address: 1032
+10:19:33: Memory : L : [1032] -> 872423424.
+10:19:33: CPU    : F : 872423424 -> IR.
+10:19:33: Decoder    : OPCode : 872423424 -> 13.
+10:19:33: CPU    : E : div.
+10:19:33: Decoder    : Operand one : 872423424 -> 1.
+10:19:33: BUS        : Read: Address: 1
+10:19:33: Memory : L : [1] -> 2.
+10:19:33: ALU    : div : AC -> 40, source -> 2 : 20 -> AC.
+10:19:33: ALU    : PR : Increment -> 1, source -> 1032 : 1033 -> PR.
+10:19:33: BUS        : Read: Address: 1033
+10:19:33: Memory : L : [1033] -> 201351168.
+10:19:33: CPU    : F : 201351168 -> IR.
+10:19:33: Decoder    : OPCode : 201351168 -> 3.
+10:19:33: CPU    : E : sm.
+10:19:33: Decoder    : Operand one : 201351168 -> 3.
+10:19:33: BUS        : Write: Address: 3, Data: 20
+10:19:33: Memory : S : 20 -> [3].
+10:19:33: ALU    : PR : Increment -> 1, source -> 1033 : 1034 -> PR.
+10:19:33: BUS        : Read: Address: 1034
+10:19:33: Memory : L : [1034] -> 225902592.
+10:19:33: CPU    : F : 225902592 -> IR.
+10:19:33: Decoder    : OPCode : 225902592 -> 3.
+10:19:33: CPU    : E : sm.
+10:19:33: Decoder    : Operand one : 225902592 -> 3000.
+10:19:33: BUS        : Write: Address: 3000, Data: 20
+10:19:33: IO     :     Write: Address: 3000, Data: 20
+10:19:33: ALU    : PR : Increment -> 1, source -> 1034 : 1035 -> PR.
+10:19:33: BUS        : Read: Address: 1035
+10:19:33: Memory : L : [1035] -> 0.
+10:19:33: CPU    : F : 0 -> IR.
+10:19:33: Decoder    : OPCode : 0 -> 0.
+10:19:33: CPU    : E : ERROR.

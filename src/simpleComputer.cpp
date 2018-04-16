@@ -51,10 +51,10 @@
 		case 0:
 			result = PR + increment;
 			break;
-		case 1:
+		case BEQ:
 			(AC == 0) ? result = PR + increment : result = PR + 1;	//Tests if AC is zero then either adds 1 to PR or increment wanted
 			break;
-		case 2:
+		case BNE:
 			(AC == 0) ? result = PR + 1: result = PR + increment;	//same as case 1
 			break;
 		}
@@ -83,10 +83,10 @@
 		case 0:
 			result = PR + increment;
 			break;
-		case 1:
+		case BEQ:
 			(AC == 0) ? result = PR + increment : result = PR + 1;
 			break;
-		case 2:
+		case BNE:
 			(AC == 0) ? result = PR + 1: result = PR + increment;
 			break;
 		}
@@ -289,22 +289,22 @@ bool simpleComputer::execute(void) {
 		  BEQ and BEQI start by subtracting AC by the wanted value. Then, depending on whether the result of this is zero or not,
 		  increments PR by the value stored in operand two, if numbers were equal, or increments PR by 1, if numbers weren't equal. */
 		AC = ALU->sub(systemBus->busRead(decoder->decodeOperandOne(IR)), AC);
-		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, 1);
+		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, BEQ);
 		break;
 	case BEQI:
 		AC = ALU->sub(decoder->decodeOperandOne(IR), AC);
-		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, 1);
+		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, BEQ);
 		break;
 	case BNE:
 		/*
 		  BNE and BENI are similar to BEQ and BEQI except that if AC is zero, PR is incremented by 1 or if AC is not zero,
 		  increments PR by value stored in operand two.	*/
 		AC = ALU->sub(systemBus->busRead(decoder->decodeOperandOne(IR)), AC);
-		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, 2);
+		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, BNE);
 		break;
 	case BNEI:
 		AC = ALU->sub(decoder->decodeOperandOne(IR), AC);
-		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, 2);
+		PR = ALU->PR(decoder->decodeOperandTwo(IR), AC, PR, BNE);
 		break;
 	case SLT:
 		//Sends value at memory address corresponding to decoded operand one to ALU to be checked against AC
@@ -331,4 +331,5 @@ void simpleComputer::flashMemory(signed int *array, signed int size) {
 	for(int i = INSTRUCTIONSTART; i < size + INSTRUCTIONSTART; i++) {	//Loops through machine code array
 		systemBus->busWrite(i, array[i - INSTRUCTIONSTART]);			//Saves machine code to corresponding memory location
 	}
+	delete array;			//Frees up the machine code array's memory as no longer needed
 }

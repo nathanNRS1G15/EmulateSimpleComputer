@@ -15,7 +15,7 @@
 
 static signed int numLines = 0;					//Keeps track of the number of lines in assembler file
 string* loadAssemblerFile(string file) {
-	static string code[100];					//Buffer to hold the read lines
+	string *code = new string[100];				//Buffer to hold the read lines
 	ifstream myFile(file);						//Sets up input stream
 	int i = 0;									//Initializes counter variable
 	if(myFile.is_open()) {						//Checks to see if file has been closed, i.e file is read
@@ -29,7 +29,7 @@ string* loadAssemblerFile(string file) {
 }
 
 int* convertAssembler(string *asmCode) {
-	static int machineCode[100] = {0};			//Buffer for converted machine code
+	int *machineCode = new int[100];			//Buffer for converted machine code
 	int commaPos1 = 0;							//Initializes the first comma position
 	int commaPos2 = 0;							//Initializes the second comma position
 	string secondHalf;							//Initializes the second half of assembler code string
@@ -121,7 +121,7 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] = BEQI << OPERANDONE;
 			machineCode[i] |= stoi(secondHalf);
 			machineCode[i] <<= OPERANDTWO;
-			//Due to potential signed number, the leading 1s must be removed by the 0x1fff
+			//Due to potential signed number, the leading 1s must be removed by bitwise AND 0x1fff
 			//As otherwise they will cause corruption by overwriting the other bits
 			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
@@ -152,6 +152,7 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
 	}
+	delete asmCode;				//Frees up the assembler array's memory as no longer needed
 	return machineCode;
 }
 

@@ -11,15 +11,17 @@ using namespace std;
 #include "simpleComputer.h"
 #include "assembler.h"
 
+const string program = "ArrayIterator";		//Name of assembler file to run
+
 int main() {
 
-	int *compiledCode = compileAsm("PrimeNumbersProgram.asm");	//Converts asm file into array of machine codes
+	int *compiledCode = compileAsm(program + string(".asm"));	//Converts asm file into array of machine codes
 	simpleComputer PC;								//Creates instance of emulator
 
 #if DEBUGMODE
-	openLogFile("debug.txt");						//If debugmode is true within debug.h, debug file is opened
+	openLogFile(program + string("Debug.txt"));		//If debugmode is true within debug.h, debug file is opened
 #endif
-	PC.flashMemory(compiledCode, numLines);			//Writes program's machine code into emulator memory
+	PC.flashMemory(compiledCode, numLines);			//Writes program's machine code into emulator memory. numLines is global variable in assembler.h
 	PC.startCPU();									//Starts the CPU execution cycles
 #if DEBUGMODE
 	closeLogFile();									//Closes debug file is program in debug mode

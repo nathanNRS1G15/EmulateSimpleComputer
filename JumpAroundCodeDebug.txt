@@ -1,0 +1,168 @@
+12:01:09: BUS        : Write: Address: 1028, Data: 0x10000064
+12:01:09: Memory : S : 0x10000064 -> [1028].
+12:01:09: BUS        : Write: Address: 1029, Data: 0x4000000
+12:01:09: Memory : S : 0x4000000 -> [1029].
+12:01:09: BUS        : Write: Address: 1030, Data: 0x500c6000
+12:01:09: Memory : S : 0x500c6000 -> [1030].
+12:01:09: BUS        : Write: Address: 1031, Data: 0x40002003
+12:01:09: Memory : S : 0x40002003 -> [1031].
+12:01:09: BUS        : Write: Address: 1032, Data: 0x1177000a
+12:01:09: Memory : S : 0x1177000a -> [1032].
+12:01:09: BUS        : Write: Address: 1033, Data: 0x54000002
+12:01:09: Memory : S : 0x54000002 -> [1033].
+12:01:09: BUS        : Write: Address: 1034, Data: 0x1177000b
+12:01:09: Memory : S : 0x1177000b -> [1034].
+12:01:09: BUS        : Write: Address: 1035, Data: 0x1177000c
+12:01:09: Memory : S : 0x1177000c -> [1035].
+12:01:09: BUS        : Write: Address: 1036, Data: 0x10000062
+12:01:09: Memory : S : 0x10000062 -> [1036].
+12:01:09: BUS        : Write: Address: 1037, Data: 0x4000000
+12:01:09: Memory : S : 0x4000000 -> [1037].
+12:01:09: BUS        : Write: Address: 1038, Data: 0x500c6000
+12:01:09: Memory : S : 0x500c6000 -> [1038].
+12:01:09: BUS        : Write: Address: 1039, Data: 0x40002003
+12:01:09: Memory : S : 0x40002003 -> [1039].
+12:01:09: BUS        : Write: Address: 1040, Data: 0x1177000a
+12:01:09: Memory : S : 0x1177000a -> [1040].
+12:01:09: BUS        : Write: Address: 1041, Data: 0x54000002
+12:01:09: Memory : S : 0x54000002 -> [1041].
+12:01:09: BUS        : Write: Address: 1042, Data: 0x1177000b
+12:01:09: Memory : S : 0x1177000b -> [1042].
+12:01:09: BUS        : Write: Address: 1043, Data: 0x1177000c
+12:01:09: Memory : S : 0x1177000c -> [1043].
+12:01:09: BUS        : Write: Address: 1044, Data: 0xa313120
+12:01:09: Memory : S : 0xa313120 -> [1044].
+12:01:09: BUS        : Read: Address: 1028
+12:01:09: Memory : L : [1028] -> 0x10000064.
+12:01:09: CPU    : F : 0x10000064 -> IR.
+12:01:09: Decoder    : OPCode : 0x10000064 -> 4.
+12:01:09: CPU    : E : si.
+12:01:09: Decoder    : Operand two : 0x64 -> 100.
+12:01:09: Decoder    : Operand one : 0x10000064 -> 0.
+12:01:09: BUS        : Write: Address: 0, Data: 0x64
+12:01:09: Memory : S : 0x64 -> [0].
+12:01:09: ALU    : PR : Increment -> 1, source -> 1028 : 1029 -> PR.
+12:01:09: BUS        : Read: Address: 1029
+12:01:09: Memory : L : [1029] -> 0x4000000.
+12:01:09: CPU    : F : 0x4000000 -> IR.
+12:01:09: Decoder    : OPCode : 0x4000000 -> 1.
+12:01:09: CPU    : E : lm.
+12:01:09: Decoder    : Operand one : 0x4000000 -> 0.
+12:01:09: BUS        : Read: Address: 0
+12:01:09: Memory : L : [0] -> 0x64.
+12:01:09: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+12:01:09: CPU    : AC : 100.
+12:01:09: BUS        : Read: Address: 1030
+12:01:09: Memory : L : [1030] -> 0x500c6000.
+12:01:09: CPU    : F : 0x500c6000 -> IR.
+12:01:09: Decoder    : OPCode : 0x500c6000 -> 20.
+12:01:09: CPU    : E : slti.
+12:01:09: Decoder    : Operand one : 0x500c6000 -> 99.
+12:01:09: ALU    : slt : AC -> 100, source -> 99 : 1 -> AC.
+12:01:09: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+12:01:09: BUS        : Read: Address: 1031
+12:01:09: Memory : L : [1031] -> 0x40002003.
+12:01:09: CPU    : F : 0x40002003 -> IR.
+12:01:09: Decoder    : OPCode : 0x40002003 -> 16.
+12:01:09: CPU    : E : beqi.
+12:01:09: Decoder    : Operand one : 0x40002003 -> 1.
+12:01:09: ALU    : sub : AC -> 1, source -> 1 : 0 -> AC.
+12:01:09: Decoder    : Operand two : 0x2003 -> 3.
+12:01:09: ALU    : PR : Increment -> 3, source -> 1031 : 1034 -> PR.
+12:01:09: BUS        : Read: Address: 1034
+12:01:09: Memory : L : [1034] -> 0x1177000b.
+12:01:09: CPU    : F : 0x1177000b -> IR.
+12:01:09: Decoder    : OPCode : 0x1177000b -> 4.
+12:01:09: CPU    : E : si.
+12:01:09: Decoder    : Operand two : 0xb -> 11.
+12:01:09: Decoder    : Operand one : 0x1177000b -> 3000.
+12:01:09: BUS        : Write: Address: 3000, Data: 0xb
+12:01:09: IO     :     Write: Address: 3000, Data: 11
+12:01:09: ALU    : PR : Increment -> 1, source -> 1034 : 1035 -> PR.
+12:01:09: BUS        : Read: Address: 1035
+12:01:09: Memory : L : [1035] -> 0x1177000c.
+12:01:09: CPU    : F : 0x1177000c -> IR.
+12:01:09: Decoder    : OPCode : 0x1177000c -> 4.
+12:01:09: CPU    : E : si.
+12:01:09: Decoder    : Operand two : 0xc -> 12.
+12:01:09: Decoder    : Operand one : 0x1177000c -> 3000.
+12:01:09: BUS        : Write: Address: 3000, Data: 0xc
+12:01:09: IO     :     Write: Address: 3000, Data: 12
+12:01:09: ALU    : PR : Increment -> 1, source -> 1035 : 1036 -> PR.
+12:01:09: BUS        : Read: Address: 1036
+12:01:09: Memory : L : [1036] -> 0x10000062.
+12:01:09: CPU    : F : 0x10000062 -> IR.
+12:01:09: Decoder    : OPCode : 0x10000062 -> 4.
+12:01:09: CPU    : E : si.
+12:01:09: Decoder    : Operand two : 0x62 -> 98.
+12:01:09: Decoder    : Operand one : 0x10000062 -> 0.
+12:01:09: BUS        : Write: Address: 0, Data: 0x62
+12:01:09: Memory : S : 0x62 -> [0].
+12:01:09: ALU    : PR : Increment -> 1, source -> 1036 : 1037 -> PR.
+12:01:09: BUS        : Read: Address: 1037
+12:01:09: Memory : L : [1037] -> 0x4000000.
+12:01:09: CPU    : F : 0x4000000 -> IR.
+12:01:09: Decoder    : OPCode : 0x4000000 -> 1.
+12:01:09: CPU    : E : lm.
+12:01:09: Decoder    : Operand one : 0x4000000 -> 0.
+12:01:09: BUS        : Read: Address: 0
+12:01:09: Memory : L : [0] -> 0x62.
+12:01:09: ALU    : PR : Increment -> 1, source -> 1037 : 1038 -> PR.
+12:01:09: CPU    : AC : 98.
+12:01:09: BUS        : Read: Address: 1038
+12:01:09: Memory : L : [1038] -> 0x500c6000.
+12:01:09: CPU    : F : 0x500c6000 -> IR.
+12:01:09: Decoder    : OPCode : 0x500c6000 -> 20.
+12:01:09: CPU    : E : slti.
+12:01:09: Decoder    : Operand one : 0x500c6000 -> 99.
+12:01:09: ALU    : slt : AC -> 98, source -> 99 : 0 -> AC.
+12:01:09: ALU    : PR : Increment -> 1, source -> 1038 : 1039 -> PR.
+12:01:09: BUS        : Read: Address: 1039
+12:01:09: Memory : L : [1039] -> 0x40002003.
+12:01:09: CPU    : F : 0x40002003 -> IR.
+12:01:09: Decoder    : OPCode : 0x40002003 -> 16.
+12:01:09: CPU    : E : beqi.
+12:01:09: Decoder    : Operand one : 0x40002003 -> 1.
+12:01:09: ALU    : sub : AC -> 0, source -> 1 : -1 -> AC.
+12:01:09: Decoder    : Operand two : 0x2003 -> 3.
+12:01:09: ALU    : PR : Increment -> 3, source -> 1039 : 1040 -> PR.
+12:01:09: BUS        : Read: Address: 1040
+12:01:09: Memory : L : [1040] -> 0x1177000a.
+12:01:09: CPU    : F : 0x1177000a -> IR.
+12:01:09: Decoder    : OPCode : 0x1177000a -> 4.
+12:01:09: CPU    : E : si.
+12:01:09: Decoder    : Operand two : 0xa -> 10.
+12:01:09: Decoder    : Operand one : 0x1177000a -> 3000.
+12:01:09: BUS        : Write: Address: 3000, Data: 0xa
+12:01:09: IO     :     Write: Address: 3000, Data: 10
+12:01:09: ALU    : PR : Increment -> 1, source -> 1040 : 1041 -> PR.
+12:01:09: BUS        : Read: Address: 1041
+12:01:09: Memory : L : [1041] -> 0x54000002.
+12:01:09: CPU    : F : 0x54000002 -> IR.
+12:01:09: Decoder    : OPCode : 0x54000002 -> 21.
+12:01:09: CPU    : E : j.
+12:01:09: Decoder    : Operand two : 0x2 -> 2.
+12:01:09: ALU    : PR : Increment -> 2, source -> 1041 : 1043 -> PR.
+12:01:09: BUS        : Read: Address: 1043
+12:01:09: Memory : L : [1043] -> 0x1177000c.
+12:01:09: CPU    : F : 0x1177000c -> IR.
+12:01:09: Decoder    : OPCode : 0x1177000c -> 4.
+12:01:09: CPU    : E : si.
+12:01:09: Decoder    : Operand two : 0xc -> 12.
+12:01:09: Decoder    : Operand one : 0x1177000c -> 3000.
+12:01:09: BUS        : Write: Address: 3000, Data: 0xc
+12:01:09: IO     :     Write: Address: 3000, Data: 12
+12:01:09: ALU    : PR : Increment -> 1, source -> 1043 : 1044 -> PR.
+12:01:09: BUS        : Read: Address: 1044
+12:01:09: Memory : L : [1044] -> 0xa313120.
+12:01:09: CPU    : F : 0xa313120 -> IR.
+12:01:09: Decoder    : OPCode : 0xa313120 -> 2.
+12:01:09: CPU    : E : li.
+12:01:09: Decoder    : Operand one : 0xa313120 -> 4489.
+12:01:09: ALU    : PR : Increment -> 1, source -> 1044 : 1045 -> PR.
+12:01:09: CPU    : AC : 4489.
+12:01:09: BUS        : Read: Address: 1045
+12:01:09: Memory : L : [1045] -> 0x0.
+12:01:09: CPU    : F : 0x0 -> IR.
+12:01:09: Decoder    : OPCode : 0x0 -> 0.
+12:01:09: CPU    : E : ERROR.
