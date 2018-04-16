@@ -11,7 +11,7 @@ using namespace std;
 #include "simpleComputer.h"
 #include "assembler.h"
 
-const string program = "ArrayIterator";		//Name of assembler file to run
+const string program = "AddTwoNumbers";		//Name of assembler file to run
 
 int main() {
 
