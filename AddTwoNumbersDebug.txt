@@ -1,36 +1,36 @@
-12:50:53: BUS        : Write: Address: 1028, Data: 0x8014000
-12:50:53: Memory : S : 0x8014000 -> [1028].
-12:50:53: BUS        : Write: Address: 1029, Data: 0x20014000
-12:50:53: Memory : S : 0x20014000 -> [1029].
-12:50:53: BUS        : Write: Address: 1030, Data: 0xd770000
-12:50:53: Memory : S : 0xd770000 -> [1030].
-12:50:53: BUS        : Read: Address: 1028
-12:50:53: Memory : L : [1028] -> 0x8014000.
-12:50:53: CPU    : F : 0x8014000 -> IR.
-12:50:53: Decoder    : OPCode : 0x8014000 -> 2.
-12:50:53: CPU    : E : li.
-12:50:53: Decoder    : Operand one : 0x8014000 -> 10.
-12:50:53: ALU    : PR : Increment -> 1, source -> 1028 : 1029 -> PR.
-12:50:53: CPU    : AC : 10.
-12:50:53: BUS        : Read: Address: 1029
-12:50:53: Memory : L : [1029] -> 0x20014000.
-12:50:53: CPU    : F : 0x20014000 -> IR.
-12:50:53: Decoder    : OPCode : 0x20014000 -> 8.
-12:50:53: CPU    : E : addi.
-12:50:53: Decoder    : Operand one : 0x20014000 -> 10.
-12:50:53: ALU    : add : AC -> 10, source -> 10 : 20 -> AC.
-12:50:53: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
-12:50:53: BUS        : Read: Address: 1030
-12:50:53: Memory : L : [1030] -> 0xd770000.
-12:50:53: CPU    : F : 0xd770000 -> IR.
-12:50:53: Decoder    : OPCode : 0xd770000 -> 3.
-12:50:53: CPU    : E : sm.
-12:50:53: Decoder    : Operand one : 0xd770000 -> 3000.
-12:50:53: BUS        : Write: Address: 3000, Data: 0x14
-12:50:53: IO     :     Write: Address: 3000, Data: 20
-12:50:53: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
-12:50:53: BUS        : Read: Address: 1031
-12:50:53: Memory : L : [1031] -> 0x0.
-12:50:53: CPU    : F : 0x0 -> IR.
-12:50:53: Decoder    : OPCode : 0x0 -> 0.
-12:50:53: CPU    : E : ERROR.
+13:37:54: BUS        : Write: Address: 1028, Data: 0x8014000
+13:37:54: Memory : S : 0x8014000 -> [1028].
+13:37:54: BUS        : Write: Address: 1029, Data: 0x20014000
+13:37:54: Memory : S : 0x20014000 -> [1029].
+13:37:54: BUS        : Write: Address: 1030, Data: 0xd770000
+13:37:54: Memory : S : 0xd770000 -> [1030].
+13:37:54: BUS        : Read: Address: 1028
+13:37:54: Memory : L : [1028] -> 0x8014000.
+13:37:54: CPU    : F : 0x8014000 -> IR.
+13:37:54: Decoder    : OPCode : 0x8014000 -> 2.
+13:37:54: CPU    : E : li.
+13:37:54: Decoder    : Operand one : 0x8014000 -> 10.
+13:37:54: ALU    : PR : Increment -> 1, source -> 1028 : 1029 -> PR.
+13:37:54: CPU    : AC : 10.
+13:37:54: BUS        : Read: Address: 1029
+13:37:54: Memory : L : [1029] -> 0x20014000.
+13:37:54: CPU    : F : 0x20014000 -> IR.
+13:37:54: Decoder    : OPCode : 0x20014000 -> 8.
+13:37:54: CPU    : E : addi.
+13:37:54: Decoder    : Operand one : 0x20014000 -> 10.
+13:37:54: ALU    : add : AC -> 10, source -> 10 : 20 -> AC.
+13:37:54: ALU    : PR : Increment -> 1, source -> 1029 : 1030 -> PR.
+13:37:54: BUS        : Read: Address: 1030
+13:37:54: Memory : L : [1030] -> 0xd770000.
+13:37:54: CPU    : F : 0xd770000 -> IR.
+13:37:54: Decoder    : OPCode : 0xd770000 -> 3.
+13:37:54: CPU    : E : sm.
+13:37:54: Decoder    : Operand one : 0xd770000 -> 3000.
+13:37:54: BUS        : Write: Address: 3000, Data: 0x14
+13:37:54: IO     :     Write: Address: 3000, Data: 20
+13:37:54: ALU    : PR : Increment -> 1, source -> 1030 : 1031 -> PR.
+13:37:54: BUS        : Read: Address: 1031
+13:37:54: Memory : L : [1031] -> 0x0.
+13:37:54: CPU    : F : 0x0 -> IR.
+13:37:54: Decoder    : OPCode : 0x0 -> 0.
+13:37:54: CPU    : E : ERROR.

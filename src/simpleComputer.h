@@ -11,6 +11,7 @@
 #include "debug.h"
 #include "instructions.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #define MEMORYSIZE 2048			//Total size of memory
@@ -49,7 +50,7 @@ protected:
 			void save(int address, int value);		//Allows saving of value to a memory address
 			signed int load(int address);			//Allows loading of value from a memory address
 
-		protected:
+		private:
 			static signed int memoryBlock[MEMORYSIZE];	//Declaration of memory block
 		};
 
@@ -58,17 +59,17 @@ protected:
 			void IOoutput(signed int address, signed int data);		//Outputs to console, which emulates an external device
 		};
 
-		memory *memory;		//Instance of memory within systemBus class
-		IO *IO;				//Instance of IO within systemBus class
+		memory memory;		//Instance of memory within systemBus class
+		IO IO;				//Instance of IO within systemBus class
 
 	public:
 		void busWrite(signed int address, signed int data);	//Allows wring to system bus that sends the data to corresponding location
 		signed int busRead(signed address);					//Allows reading from system bus that gets the data from corresponding location
 	};
 
-	systemBus *systemBus;	//Creates instance of systemBus within simpleComputer class
-	ALU *ALU;				//Creates instance of ALU within simpleComputer class
-	decoder *decoder;		//Creates instance of decoder within simpleComputer class
+	systemBus systemBus;	//Creates instance of systemBus within simpleComputer class
+	ALU ALU;				//Creates instance of ALU within simpleComputer class
+	decoder decoder;		//Creates instance of decoder within simpleComputer class
 
 public:
 	bool startCPU(void) {		//Starting function for the emulator

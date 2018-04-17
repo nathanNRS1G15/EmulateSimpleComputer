@@ -31,7 +31,8 @@ string getTime(void) {
 }
 
 void memoryLog(char function, unsigned int targetAddress, signed int sourceValue) {
-	switch (function) { 		//Switch based on the current memory mode; save or load
+	switch (function)
+	{ 		//Switch based on the current memory mode; save or load
 	case 'S':					//Save mode
 		logFile << getTime() << ": Memory : " << function << " : 0x" << hex << sourceValue << dec << " -> [" << targetAddress << "]." <<  endl;	//Writes current time, memory mode, source and target address to log file
 		break;

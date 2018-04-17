@@ -152,7 +152,7 @@ int* convertAssembler(string *asmCode) {
 			machineCode[i] |= (stoi(secondHalf.substr(commaPos2 + 1, secondHalf.length())) & 0x1fff);
 		}
 	}
-	delete asmCode;				//Frees up the assembler array's memory as no longer needed
+	delete[] asmCode;				//Frees up the assembler array's memory as no longer needed
 	return machineCode;
 }
 

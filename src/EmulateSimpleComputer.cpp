@@ -10,11 +10,11 @@ using namespace std;
 #include "debug.h"
 #include "simpleComputer.h"
 #include "assembler.h"
-
-const string program = "AddTwoNumbers";		//Name of assembler file to run
+#include <vector>
+using namespace std;
+const string program = "PrimeNumbersProgram";		//Name of assembler file to run
 
 int main() {
-
 	int *compiledCode = compileAsm(program + string(".asm"));	//Converts asm file into array of machine codes
 	simpleComputer PC;								//Creates instance of emulator
 
